@@ -11,7 +11,9 @@ export type PlayerSeasonSummary = { playerId: string; played: number; goals: num
 export type SeasonArchive = { season: string; closedAt: string; played: number; wins: number; draws: number; losses: number; goalsFor: number; goalsAgainst: number; points: number; players?: PlayerSeasonSummary[] };
 export type SquadPlan = { id: string; name: string; formation: string; lineup: string[] };
 export type ScoutReport = { id: string; name: string; club: string; position: string; age: number; overall: number; estimatedFee: number | null; estimateNote: string; folder: string; status: string; potential: string; notes: string; date: string };
-export type Career = { id: string; name: string; mode: Mode; gender: Gender; game: string; season: string; seasons?: SeasonArchive[]; squadPlans?: SquadPlan[]; scouting?: ScoutReport[]; person: string; club: string; color: string; created: boolean; playerId: string; players: Player[]; matches: Match[]; transactions: Transaction[]; transfers: Transfer[]; trophies: Trophy[]; notes: Note[]; formation: string; lineup: string[]; budget: number; demo: boolean };
+export type AcademyProspect = { id: string; name: string; position: string; age: number; overall: number; potential: string; nation: string; appearances: number; goals: number; assists: number; status: string; notes: string };
+export type CareerGoal = { id: string; title: string; kind: 'personal'|'club-target'; target: number; progress: number; season: string; status: string; notes: string };
+export type Career = { id: string; name: string; mode: Mode; gender: Gender; game: string; season: string; seasons?: SeasonArchive[]; squadPlans?: SquadPlan[]; scouting?: ScoutReport[]; academy?: AcademyProspect[]; goals?: CareerGoal[]; person: string; club: string; color: string; created: boolean; playerId: string; players: Player[]; matches: Match[]; transactions: Transaction[]; transfers: Transfer[]; trophies: Trophy[]; notes: Note[]; formation: string; lineup: string[]; budget: number; demo: boolean };
 export type Store = { version: 1; activeId: string; careers: Career[] };
 export const STORAGE_KEY = 'touchline-career-v1';
 export const uid = () => crypto.randomUUID();
@@ -51,7 +53,7 @@ export function createCareer(input: Pick<Career, 'name'|'mode'|'gender'|'game'|'
     if (existing) playerId = existing.id;
     else { const player = { id: uid(), name: input.person, number: input.number ?? 10, position: input.position ?? 'MC', overall: 70, age: 18, nation: 'Portugal', salary: 0, contract: '2027-06-30' }; players.push(player); playerId = player.id; }
   }
-  return { ...input, id: uid(), playerId, players, matches: [], seasons: [], squadPlans: [], scouting: [], transactions: [], transfers: [], trophies: [], notes: [], formation: '4-3-3', lineup: players.slice(0,11).map(p => p.id), budget: 0, demo: false };
+  return { ...input, id: uid(), playerId, players, matches: [], seasons: [], squadPlans: [], scouting: [], academy: [], goals: [], transactions: [], transfers: [], trophies: [], notes: [], formation: '4-3-3', lineup: players.slice(0,11).map(p => p.id), budget: 0, demo: false };
 }
 export function demoCareer(): Career {
   const c = createCareer({ name:'Uma nova era',mode:'manager',gender:'male',game:'FC 26',season:'2026/27',person:'O meu treinador',club:'SL Benfica',color:'#df302e',created:true });
@@ -101,9 +103,11 @@ export function parseStore(raw: string): Store {
     if(c.seasons!==undefined&&(!Array.isArray(c.seasons)||c.seasons.length>15||!c.seasons.every(s=>s&&string(s.season)&&date(s.closedAt)&&['played','wins','draws','losses','goalsFor','goalsAgainst','points'].every(k=>finite(s[k as keyof SeasonArchive]))&&(s.players===undefined||Array.isArray(s.players)&&s.players.every(p=>pids.has(p.playerId)&&['played','goals','assists','minutes','rating'].every(k=>finite(p[k as keyof PlayerSeasonSummary]))))))) throw new Error('Arquivo de épocas inválido.');
     if(c.squadPlans!==undefined&&(!Array.isArray(c.squadPlans)||c.squadPlans.length>30||!c.squadPlans.every(p=>p&&string(p.id)&&string(p.name)&&formations[p.formation]&&Array.isArray(p.lineup)&&p.lineup.length===11&&p.lineup.every(id=>string(id)&&(!id||pids.has(id)))))) throw new Error('Planos táticos inválidos.');
     if(c.scouting!==undefined&&(!Array.isArray(c.scouting)||c.scouting.length>3000||!c.scouting.every(p=>p&&['id','name','club','position','estimateNote','folder','status','potential','notes'].every(k=>string(p[k as keyof ScoutReport]))&&date(p.date)&&positions.includes(p.position)&&finite(p.age,14,99)&&finite(p.overall,1,99)&&(p.estimatedFee===null||finite(p.estimatedFee))))) throw new Error('Relatórios de observação inválidos.');
+    if(c.academy!==undefined&&(!Array.isArray(c.academy)||c.academy.length>1000||!c.academy.every(p=>p&&['id','name','position','potential','nation','status','notes'].every(k=>string(p[k as keyof AcademyProspect]))&&positions.includes(p.position)&&finite(p.age,14,23)&&finite(p.overall,1,99)&&['appearances','goals','assists'].every(k=>finite(p[k as keyof AcademyProspect]))))) throw new Error('Registos da academia inválidos.');
+    if(c.goals!==undefined&&(!Array.isArray(c.goals)||c.goals.length>300||!c.goals.every(g=>g&&['id','title','season','status','notes'].every(k=>string(g[k as keyof CareerGoal]))&&['personal','club-target'].includes(g.kind)&&finite(g.target)&&finite(g.progress)))) throw new Error('Objetivos de carreira inválidos.');
   }
   if(data.activeId && !ids.has(data.activeId)) throw new Error('Carreira ativa não encontrada.');
-  return { ...data, careers: data.careers.map(c => ({ ...c, seasons: c.seasons ?? [], squadPlans:c.squadPlans??[], scouting:c.scouting??[], matches: c.matches.map(m => ({ ...m, season: m.season ?? c.season })) })) };
+  return { ...data, careers: data.careers.map(c => ({ ...c, seasons: c.seasons ?? [], squadPlans:c.squadPlans??[], scouting:c.scouting??[], academy:c.academy??[], goals:c.goals??[], matches: c.matches.map(m => ({ ...m, season: m.season ?? c.season })) })) };
 }
 
 export function seasonLabel(game: string, season: string, language: 'pt'|'en'|'fr'|'es'|'it' = 'pt') {

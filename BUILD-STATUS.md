@@ -8,7 +8,9 @@ Atualizado em 1 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](h
 - O assistente de carreira inicia FC 26 em 2025/26 e FC 27 em 2026/27; as carreiras podem guardar no máximo 15 épocas.
 - Carreiras antigas migram ao carregar, mantendo jogos e adicionando época aos registos antigos; exportação/importação passa pela validação do modelo.
 - A nova página de épocas permite fechar temporadas, guardar resumos coletivos e individuais, consultar resultados de jogadores e manter partidas no histórico. Os nomes Época, Season, Saison, Temporada e Stagione estão disponíveis.
-- A página de tática permite guardar e carregar até 30 plantéis com formação e onze próprios.
+- A página de tática permite guardar e carregar até 30 plantéis com formação e onze próprios (só aparece em carreira de treinador/treinadora).
+- A carreira de jogador/a tem uma página separada para objetivos pessoais e clubes-alvo, com progresso editável; a carreira de treinador/a tem scout e academia próprios. Ainda não há parecer de agente ou auxiliar gerado por IA.
+- A academia de formação permite adicionar jovens, acompanhar OVR/potencial/estatísticas manualmente e promovê-los ao plantel.
 - O scout permite criar observações manuais em pastas, pesquisar, editar estados, registar potencial e adicionar uma estimativa de preço antes de guardar. O preço fica marcado como manual ou desconhecido porque nenhuma cotação licenciada está ligada.
 - O balneário para carreiras de clube ganhou uma cena arquitetónica 3D própria, percorrível por teclado e toque, com camisolas procedurais e cabines clicáveis, incluindo movimento inercial suave nas camisolas penduradas. O motor carrega apenas ao entrar nessa página.
 - Minutas de privacidade, cookies e termos estão acessíveis desde a entrada e no interior da aplicação. Identificação e contacto do responsável, alojamento final e eventuais fornecedores ainda precisam de ser preenchidos antes de uma publicação real.

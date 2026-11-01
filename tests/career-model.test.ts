@@ -35,4 +35,6 @@ test('older browser saves migrate without losing games and add season tags', () 
   assert.deepEqual(restored.seasons, []);
   assert.deepEqual(restored.squadPlans, []);
   assert.deepEqual(restored.scouting, []);
+  assert.deepEqual(restored.academy, []);
+  assert.deepEqual(restored.goals, []);
 });
