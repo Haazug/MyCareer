@@ -1,0 +1,65 @@
+{
+  "source": "https://registry.npmjs.org/eafc-db-kit/-/eafc-db-kit-1.1.0.tgz",
+  "package": "eafc-db-kit@1.1.0",
+  "scope": "UNVALIDATED_CANDIDATE_SNAPSHOTS",
+  "permission_to_republish_game_assets": "NOT_ESTABLISHED",
+  "versions": {
+    "FC 26": {
+      "team_records": 799,
+      "team_categories": {
+        "CLUB_CANDIDATE": 742,
+        "TECHNICAL_OR_SPECIAL_CANDIDATE": 12,
+        "NATIONAL_TEAM_CANDIDATE": 45
+      },
+      "league_records": 52,
+      "league_candidate_count": 42,
+      "kit_records": 3745,
+      "competition_overrides": 950,
+      "distinct_number_font_ids": 112,
+      "distinct_name_font_ids": 69,
+      "manager_records": 799,
+      "manager_licensed_flags": {
+        "1": 480,
+        "0": 319
+      },
+      "player_records": 20201,
+      "nation_reference_records": 218,
+      "warnings": [],
+      "kit_records_with_unmatched_team_id": 1260,
+      "records_marked_visual_ready": 0
+    },
+    "FC 27": {
+      "team_records": 870,
+      "team_categories": {
+        "CLUB_CANDIDATE": 774,
+        "TECHNICAL_OR_SPECIAL_CANDIDATE": 27,
+        "NATIONAL_TEAM_CANDIDATE": 69
+      },
+      "league_records": 57,
+      "league_candidate_count": 43,
+      "kit_records": 4054,
+      "competition_overrides": 1029,
+      "distinct_number_font_ids": 122,
+      "distinct_name_font_ids": 79,
+      "manager_records": 870,
+      "manager_licensed_flags": {
+        "1": 489,
+        "0": 381
+      },
+      "player_records": 21623,
+      "nation_reference_records": 219,
+      "warnings": [],
+      "kit_records_with_unmatched_team_id": 1368,
+      "records_marked_visual_ready": 0
+    }
+  },
+  "register_rows": {
+    "teams": 1669,
+    "kits": 7799,
+    "competition-overrides": 1979,
+    "fonts": 665,
+    "leagues": 109,
+    "managers": 1669
+  },
+  "decoded_evidence_sha256": "6aefebe175ef915a004637114689689813d561c565cddf174d3cbea30dd3e460"
+}

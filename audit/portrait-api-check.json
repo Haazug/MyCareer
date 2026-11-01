@@ -1,0 +1,20 @@
+{
+  "checked_utc": "2026-11-01T20:46:35.879976+00:00",
+  "url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrsearch=Cristiano+Ronaldo+portrait+filetype%3Abitmap&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=400",
+  "purpose": "ONE_PORTRAIT_METADATA_SAMPLE_NOT_CATALOGUE_COVERAGE",
+  "http_status": 200,
+  "samples": [
+    {
+      "title": "File:Cristiano Ronaldo, 2010.jpg",
+      "descriptionurl": "https://commons.wikimedia.org/wiki/File:Cristiano_Ronaldo,_2010.jpg",
+      "metadata": {
+        "Artist": "Dagmara Gurdziel / RC Lens",
+        "Credit": "<a rel=\"nofollow\" class=\"external text\" href=\"http://realmadrid.pl\">RealMadrid.pl</a>",
+        "LicenseShortName": "Attribution",
+        "LicenseUrl": null,
+        "AttributionRequired": null,
+        "Restrictions": ""
+      }
+    }
+  ]
+}

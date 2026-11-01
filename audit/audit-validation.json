@@ -1,0 +1,42 @@
+{
+  "teams": {
+    "rows": 1669,
+    "expected": 1669,
+    "ok": true
+  },
+  "kits": {
+    "rows": 7799,
+    "expected": 7799,
+    "ok": true
+  },
+  "competition-overrides": {
+    "rows": 1979,
+    "expected": 1979,
+    "ok": true
+  },
+  "fonts": {
+    "rows": 665,
+    "expected": 665,
+    "ok": true
+  },
+  "leagues": {
+    "rows": 109,
+    "expected": 109,
+    "ok": true
+  },
+  "managers": {
+    "rows": 1669,
+    "expected": 1669,
+    "ok": true
+  },
+  "league-source-review": {
+    "rows": 89,
+    "well_formed": true
+  },
+  "missing-dependencies": {
+    "rows": 27,
+    "well_formed": true
+  },
+  "broken_local_links": [],
+  "script_syntax": "valid"
+}

@@ -1,0 +1,28 @@
+id,area,type,status,required_evidence,next_step
+CAT-01,Universo FC 26/27,VALIDACAO_EXTERNA,PENDENTE,Catálogo oficial por edição atualização modo equipa e género,Confrontar fontes oficiais e snapshots candidatos
+CAT-02,Catálogo de jogadores e treinadores,REUTILIZACAO_DADOS,PENDENTE,Fonte versão licença e identidade selecionável,Validar acesso e direitos antes de republicar
+CAT-03,Preço antes do scout,DADO_OU_ESTIMADOR,PENDENTE,Valor FC compatível ou estimativa própria calibrada e identificada,Definir e validar método sem substituir por salário ou cláusula
+CAT-04,PlayStyles posições e funções,MAPEAMENTO,PENDENTE,Descodificação de campos e nomes em seis idiomas,Validar correspondências por edição
+VIS-01,Equipamentos de todos os clubes e seleções,FICHEIROS_E_CONDICOES,PENDENTE,Frente costas mangas cortes equipa género temporada variante e licença,Completar inventário por equipamento
+VIS-02,Lettering de nomes números e calções,FICHEIROS_E_CONDICOES,PENDENTE,Fontes ou glifos corretos com utilização digital compatível,Validar origem e conjunto por equipamento e competição
+VIS-03,Emblemas patches patrocínios e bolas,FICHEIROS_E_CONDICOES,PENDENTE,Ficheiros variantes e condições por elemento,Completar manifesto de recursos
+VIS-04,Retratos de jogadores e treinadores,FICHEIROS_E_CONDICOES,AMOSTRA_REAL_CONFIRMADA_COBERTURA_PENDENTE,Pessoa correta autor licença e foto utilizável,Selecionar e atribuir cada retrato
+VIS-05,Faces 3D,FICHEIROS_E_CONDICOES,NAO_OBTIDAS,Modelos texturas e direitos próprios,Não confundir retratos ou IDs de cabeça com faces 3D
+VIS-06,Troféus e prémios,FICHEIROS_E_CONDICOES,CANDIDATOS_SEM_COLECAO_APROVADA,Ficheiros qualidade licença autoria e condições do design representado,Validar cada peça e otimizar
+VIS-07,Fotos frases mascotes e decoração,FICHEIROS_E_CONDICOES,PENDENTE,Proveniência das peças escolhidas e configuração por clube,Resolver foto Unsplash existente e selecionar recursos reais
+VIS-08,Materiais e iluminação,FICHEIROS,FORNECEDORES_CC0_CONFIRMADOS,Recursos concretos adequados com origem e licença registadas,Selecionar ficheiros Poly Haven ou ambientCG
+VIS-09,Fonte da interface,FICHEIROS,CANDIDATA_OFL_CONFIRMADA,Ficheiros locais e licença distribuída,Selecionar Manrope sem substituir fontes de camisola
+BLD-01,Balneário museu camisolas casacos e cachecóis,CRIACAO_3D,NAO_IMPLEMENTADO,Modelos próprios e avaliação visual próxima e de contexto,Construir depois da luz verde
+BLD-02,Física câmara e transições,IMPLEMENTACAO,NAO_IMPLEMENTADO,Interação colisões acessibilidade toque e desempenho medidos,Construir depois da luz verde
+BLD-03,Carreiras épocas passagens e histórico,IMPLEMENTACAO,MODELO_ATUAL_INSUFICIENTE,Relações e snapshots sem reescrever histórico,Rever esquema depois da luz verde
+BLD-04,Jogos estatísticas e recordações,IMPLEMENTACAO,PARCIAL_SEM_VALIDACAO_COMPLETA,Cálculos e edição sem duplicar totais e conquistas,Implementar percursos de registo e correção
+BLD-05,Scouting academia finanças e planos de equipa,IMPLEMENTACAO,PARCIAL_SEM_VALIDACAO_COMPLETA,Regras aprovadas e quatro papéis preservados,Implementar sobre IDs e histórico comuns
+BLD-06,Traduções moedas e medidas,IMPLEMENTACAO,NAO_CONCLUIDO,Seis idiomas e valores originais preservados,Integrar câmbio testado e rever terminologia
+ACC-01,Supabase,CONFIGURACAO_UTILIZADOR,NAO_CONFIGURADO,Projeto região chaves adequadas autenticação e limites,Configurar quando utilizador preparar o projeto
+ACC-02,Email público ou OAuth,CONFIGURACAO,PENDENTE,SMTP adequado ou fornecedor OAuth configurado e testado,Não depender do SMTP padrão para email público
+ACC-03,Isolamento sincronização e cópias,IMPLEMENTACAO_E_TESTES,NAO_IMPLEMENTADO,RLS storage privado conflitos exportação restauro e eliminação,Construir e validar com contas diferentes
+AI-01,Groq Free,CONFIGURACAO_E_TESTES,NAO_LIGADO,Chave modelo quotas dados e respostas fundamentadas,Testar adaptador sem custos pagos
+AI-02,WebLLM,CONFIGURACAO_E_TESTES,NAO_LIGADO,Modelo licença tamanho WebGPU e coexistência com 3D,Testar local e escolha explícita de reserva remota
+LEG-01,Privacidade cookies termos e créditos,CONFIGURACAO_E_DOCUMENTOS,PENDENTE,Responsável contacto fornecedores dados retenções e licença por recurso,Preencher de acordo com o serviço efetivo UE e Brasil
+OPS-01,Build GitHub e Vercel,IMPLEMENTACAO_E_PUBLICACAO,BUILD_FALHA_SEM_PUBLICACAO,Build válido rotas segredos e quotas verificados,Corrigir após luz verde e só então preparar publicação
+OPS-02,Nome e domínio,VERIFICACAO,PENDENTE,Nome do produto verificado e endereço escolhido,Manter nome provisório e subdomínio gratuito sem compra automática

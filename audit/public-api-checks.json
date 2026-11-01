@@ -1,0 +1,249 @@
+{
+  "search_arsenal": {
+    "url": "https://www.thesportsdb.com/api/v1/json/123/searchteams.php?t=Arsenal",
+    "status": 200,
+    "top_keys": [
+      "teams"
+    ],
+    "count": 1,
+    "record_keys": [
+      "idTeam",
+      "idESPN",
+      "idAPIfootball",
+      "intLoved",
+      "strTeam",
+      "strTeamAlternate",
+      "strTeamShort",
+      "intFormedYear",
+      "strSport",
+      "strLeague",
+      "idLeague",
+      "strLeague2",
+      "idLeague2",
+      "strLeague3",
+      "idLeague3",
+      "strLeague4",
+      "idLeague4",
+      "strLeague5",
+      "idLeague5",
+      "strLeague6",
+      "idLeague6",
+      "strLeague7",
+      "idLeague7",
+      "strDivision",
+      "idVenue",
+      "strStadium",
+      "strKeywords",
+      "strRSS",
+      "strLocation",
+      "strWebsite",
+      "strFacebook",
+      "strTwitter",
+      "strInstagram",
+      "strDescriptionEN",
+      "strDescriptionDE",
+      "strDescriptionFR",
+      "strDescriptionCN",
+      "strDescriptionIT",
+      "strDescriptionJP",
+      "strDescriptionRU",
+      "strDescriptionES",
+      "strDescriptionPT",
+      "strDescriptionSE",
+      "strDescriptionNL",
+      "strDescriptionHU",
+      "strDescriptionNO",
+      "strDescriptionIL",
+      "strDescriptionPL",
+      "strColour1",
+      "strColour2",
+      "strColour3",
+      "strGender",
+      "strCountry",
+      "strBadge",
+      "strLogo",
+      "strFanart1",
+      "strFanart2",
+      "strFanart3",
+      "strFanart4",
+      "strBanner",
+      "strEquipment",
+      "strYoutube",
+      "strLocked"
+    ],
+    "sample": [
+      {
+        "idTeam": "133604",
+        "strTeam": "Arsenal"
+      }
+    ]
+  },
+  "search_benfica": {
+    "url": "https://www.thesportsdb.com/api/v1/json/123/searchteams.php?t=Benfica",
+    "status": 200,
+    "top_keys": [
+      "teams"
+    ],
+    "count": 1,
+    "record_keys": [
+      "idTeam",
+      "idESPN",
+      "idAPIfootball",
+      "intLoved",
+      "strTeam",
+      "strTeamAlternate",
+      "strTeamShort",
+      "intFormedYear",
+      "strSport",
+      "strLeague",
+      "idLeague",
+      "strLeague2",
+      "idLeague2",
+      "strLeague3",
+      "idLeague3",
+      "strLeague4",
+      "idLeague4",
+      "strLeague5",
+      "idLeague5",
+      "strLeague6",
+      "idLeague6",
+      "strLeague7",
+      "idLeague7",
+      "strDivision",
+      "idVenue",
+      "strStadium",
+      "strKeywords",
+      "strRSS",
+      "strLocation",
+      "strWebsite",
+      "strFacebook",
+      "strTwitter",
+      "strInstagram",
+      "strDescriptionEN",
+      "strDescriptionDE",
+      "strDescriptionFR",
+      "strDescriptionCN",
+      "strDescriptionIT",
+      "strDescriptionJP",
+      "strDescriptionRU",
+      "strDescriptionES",
+      "strDescriptionPT",
+      "strDescriptionSE",
+      "strDescriptionNL",
+      "strDescriptionHU",
+      "strDescriptionNO",
+      "strDescriptionIL",
+      "strDescriptionPL",
+      "strColour1",
+      "strColour2",
+      "strColour3",
+      "strGender",
+      "strCountry",
+      "strBadge",
+      "strLogo",
+      "strFanart1",
+      "strFanart2",
+      "strFanart3",
+      "strFanart4",
+      "strBanner",
+      "strEquipment",
+      "strYoutube",
+      "strLocked"
+    ],
+    "sample": [
+      {
+        "idTeam": "134108",
+        "strTeam": "Benfica"
+      }
+    ]
+  },
+  "equipment_documented_example": {
+    "url": "https://www.thesportsdb.com/api/v1/json/123/lookupequipment.php?id=133597",
+    "status": 200,
+    "top_keys": [
+      "equipment"
+    ],
+    "count": 2,
+    "record_keys": [
+      "idEquipment",
+      "idTeam",
+      "date",
+      "strSeason",
+      "strEquipment",
+      "strType",
+      "strUsername"
+    ],
+    "sample": [
+      {
+        "idTeam": "133597",
+        "strSeason": "2019-2020",
+        "strType": "1st"
+      },
+      {
+        "idTeam": "133597",
+        "strSeason": "2020-2021",
+        "strType": "1st"
+      }
+    ]
+  },
+  "equipment_arsenal": {
+    "url": "https://www.thesportsdb.com/api/v1/json/123/lookupequipment.php?id=133604",
+    "status": 200,
+    "top_keys": [
+      "equipment"
+    ],
+    "count": 2,
+    "sample": [
+      {
+        "idTeam": "133604",
+        "strSeason": "2019-2020",
+        "strType": "1st"
+      },
+      {
+        "idTeam": "133604",
+        "strSeason": "2019-2020",
+        "strType": "2nd"
+      }
+    ]
+  },
+  "equipment_benfica": {
+    "url": "https://www.thesportsdb.com/api/v1/json/123/lookupequipment.php?id=134108",
+    "status": 200,
+    "top_keys": [
+      "equipment"
+    ],
+    "count": 2,
+    "sample": [
+      {
+        "idTeam": "134108",
+        "strSeason": "2021-2022",
+        "strType": "1st"
+      },
+      {
+        "idTeam": "134108",
+        "strSeason": "2021-2022",
+        "strType": "2nd"
+      }
+    ]
+  },
+  "frankfurter_sample": {
+    "url": "https://api.frankfurter.dev/v1/latest?base=EUR&symbols=GBP,USD,BRL",
+    "status": 200,
+    "top_keys": [
+      "amount",
+      "base",
+      "date",
+      "rates"
+    ],
+    "sample": {
+      "amount": 1.0,
+      "base": "EUR",
+      "date": "2026-10-30",
+      "rates": {
+        "BRL": 6.0692,
+        "GBP": 0.8338,
+        "USD": 1.1172
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "font_files": [],
+  "model_files": [],
+  "media_files": [
+    "public/stadium.jpg"
+  ],
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "^0.468.0"
+  },
+  "build_exit_code": 1,
+  "build_output": "\n> touchline-career@0.1.0 build\n> tsc -b && vite build\n\nvite v6.4.5 building for production...\ntransforming...\n\u2713 3 modules transformed.\n\u2717 Build failed in 97ms\nerror during build:\nCould not resolve \"./styles.css\" from \"src/main.tsx\"\nfile: /workspace/touchline-career/src/main.tsx\n    at getRollupError (file:///workspace/touchline-career/node_modules/rollup/dist/es/shared/parseAst.js:337:41)\n    at error (file:///workspace/touchline-career/node_modules/rollup/dist/es/shared/parseAst.js:333:42)\n    at ModuleLoader.handleInvalidResolvedId (file:///workspace/touchline-career/node_modules/rollup/dist/es/shared/node-entry.js:23167:24)\n    at file:///workspace/touchline-career/node_modules/rollup/dist/es/shared/node-entry.js:23127:26\n    at async Promise.all (index 4)\n"
+}
