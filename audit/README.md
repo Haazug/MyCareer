@@ -55,7 +55,7 @@ Os CSV derivados estão em `audit/registers/`, com exclusão preparada em `.giti
 
 ## 2. Fontes e uniformes: resultado da pesquisa
 
-Não foi encontrado um pacote gratuito com autorização clara para incorporar, personalizar e distribuir no browser o lettering e os uniformes de todo este universo.
+Não foi encontrado um pacote gratuito com autorização clara para incorporar, personalizar e distribuir no browser o lettering e os uniformes de todo este universo. A revisão atual confirma que o serviço hospedado da FKAPI está encerrado desde maio de 2026; não é fallback para completar o catálogo. TheSportsDB mantém API gratuita de baixa quota para desenvolvimento, mas os próprios termos distinguem publicação de apps, condicionam imagens à licença item a item e não fornecem todos os uniformes FC 26/27.
 
 | Grupo | Evidência encontrada | O que continua em falta |
 | --- | --- | --- |

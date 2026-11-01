@@ -14,7 +14,7 @@ Atualizado em 1 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](h
 - O scout permite criar observações manuais em pastas, pesquisar, editar estados, registar potencial e adicionar uma estimativa de preço antes de guardar. O preço fica marcado como manual ou desconhecido porque nenhuma cotação licenciada está ligada.
 - O balneário para carreiras de clube ganhou uma cena arquitetónica 3D própria, percorrível por teclado e toque, com camisolas procedurais e cabines clicáveis, incluindo movimento inercial suave nas camisolas penduradas. O motor carrega apenas ao entrar nessa página.
 - Minutas de privacidade, cookies e termos estão acessíveis desde a entrada e no interior da aplicação. Identificação e contacto do responsável, alojamento final e eventuais fornecedores ainda precisam de ser preenchidos antes de uma publicação real.
-- O registo [SOURCES-AND-RIGHTS.md](SOURCES-AND-RIGHTS.md) compara as bases/API e documenta licenças, limites, fallbacks e estado de cada integração; o detalhe de equipamentos e lettering continua na [auditoria](audit/README.md).
+- O registo [SOURCES-AND-RIGHTS.md](SOURCES-AND-RIGHTS.md) compara as bases/API e documenta licenças, limites, fallbacks e estado de cada integração; termos de TheSportsDB e encerramento da FKAPI foram revistos em novembro de 2026; o detalhe de equipamentos e lettering continua na [auditoria](audit/README.md).
 
 ## Fontes visuais e de dados
 
