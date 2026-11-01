@@ -47,3 +47,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .home-hero-bg{background:radial-gradient(ellipse at 70% 80%,#b0a28b28,transparent 42%),linear-gradient(90deg,#10100f80,transparent 80%)}
 .home-hero-copy h2 span{color:#d0c6b5}
 .hero-footnote i,.app-footer i{background:#c8bda9}
+
+.locker3d-world canvas{transform-origin:center;animation:locker-room-enter .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes locker-room-enter{from{opacity:0;transform:scale(1.015)}to{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.locker3d-world canvas{animation-duration:.01ms}}
