@@ -15,15 +15,15 @@ Verificações locais: `npm test` e `npm run build`. O diretório de saída do V
 
 O catálogo curto de equipas e os plantéis-semente são editáveis, demonstrativos e não oficiais. A aplicação não está ligada ao FC nem importa saves. Os registos ficam no armazenamento local do browser; exporta uma cópia antes de mudares de dispositivo ou apagares os dados do site.
 
-Jogadores, jogos, OVR, preços de scout e movimentos são introduzidos pelo utilizador. Não há conta, sincronização Supabase, IA generativa ou API externa ativa nesta versão. As opções investigadas, termos, licenças e estado de cada dependência estão em [SOURCES-AND-RIGHTS.md](SOURCES-AND-RIGHTS.md). A validação dos equipamentos e tipos de letra está em [audit/README.md](audit/README.md) e [GREENLIGHT-REPORT.md](GREENLIGHT-REPORT.md).
+Jogadores, jogos, OVR, preços de scout e movimentos são introduzidos pelo utilizador. Não há conta, sincronização Supabase ou catálogo automático de futebol. Os conselheiros de IA estão implementados como funções opcionais de servidor (Groq Free principal e Cloudflare Workers AI de reserva), mas só ficam operacionais quando o operador configurar as chaves; nenhum segredo vem no repositório. As opções investigadas, termos, licenças e estado de cada dependência estão em [SOURCES-AND-RIGHTS.md](SOURCES-AND-RIGHTS.md). A validação dos equipamentos e tipos de letra está em [audit/README.md](audit/README.md) e [GREENLIGHT-REPORT.md](GREENLIGHT-REPORT.md).
 
 ## Deploy na Vercel
 
-Importar o repositório, selecionar Vite e manter o comando de build `npm run build` e diretório de saída `dist`. Não são necessárias variáveis de ambiente para as funções atuais. As minutas legais não estão prontas para lançamento até preencher a identidade/contacto do operador e rever fornecedores de alojamento.
+Importar o repositório, selecionar Vite e manter o comando de build `npm run build` e diretório de saída `dist`. Para ativar os conselheiros, adicionar `GROQ_API_KEY`, `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` como variáveis privadas no servidor Vercel. Criar cada conta no plano gratuito; quotas excedidas apenas interrompem o serviço. Para testar as funções localmente, usar `vercel dev` com um `.env.local` próprio (não versionar chaves). Os formulários de consentimento permitem selecionar o fornecedor e autorizar a reserva separadamente. As minutas legais não estão prontas para lançamento até preencher a identidade/contacto do operador e rever fornecedores de alojamento.
 
 ## Identidade visual e balneários
 
-A aplicação chama-se MyCareer. O visual usa preto, branco-chalk e bege; cada carreira pode personalizar as cores, a luz, as iniciais e a frase do teto do balneário. As referências documentadas incluem Benfica (imagem enviada), Real Madrid, Barcelona, Inter e AC Milan. Os modelos atuais são originais e não usam escudos, camisolas ou fontes oficiais. Detalhes em [ROOM-INSPIRATION.md](ROOM-INSPIRATION.md).
+A aplicação chama-se MyCareer. O visual usa preto, branco-chalk e bege; cada carreira pode personalizar as cores, a luz, as iniciais e a frase do teto do balneário. As referências documentadas incluem Benfica (imagem enviada), Real Madrid, Barcelona, Inter e AC Milan. Os modelos atuais são originais e não usam escudos, camisolas ou fontes oficiais. É possível carregar um emblema PNG/JPG/WebP próprio na carreira; a imagem é reduzida e fica no navegador. Detalhes em [ROOM-INSPIRATION.md](ROOM-INSPIRATION.md).
 
 ## Direitos e créditos
 

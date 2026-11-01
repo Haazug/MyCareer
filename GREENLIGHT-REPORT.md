@@ -2,9 +2,9 @@
 
 ## Veredicto
 
-**Luz verde recebida em 1 de novembro de 2026: iniciar a construção por etapas.** Cobertura gratuita e autêntica de todos os uniformes/fontes ainda não está demonstrada. Esta limitação define o que pode ser chamado de pronto e permanece no roteiro, sem suspender a construção da base funcional.
+**Luz verde recebida em 1 de novembro de 2026: iniciar a construção por etapas.** O primeiro tracker funcional já existe no build local. Cobertura gratuita e autêntica de todos os uniformes/fontes ainda não está demonstrada. Esta limitação define o que pode ser chamado de pronto e permanece no roteiro, sem suspender a construção da base funcional.
 
-O plano funcional está definido. Foram agora testadas bases candidatas das duas edições, inventariados os registos de equipamentos e ensaiadas APIs públicas. Faltam a validação do universo oficial por atualização/modo, os ficheiros e as condições de uso de toda a biblioteca visual. **Inventário de IDs não é biblioteca pronta.** O detalhe, evidências e lacunas estão na [auditoria de dependências](audit/README.md).
+O plano funcional está definido. Foram testadas bases candidatas das duas edições, inventariados os registos de equipamentos e ensaiadas APIs públicas. Atualização de implementação: fontes de futebol são pesquisa manual sem scraping; conselheiros Groq/Cloudflare foram adicionados como funções opcionais de servidor, à espera de chaves privadas para teste real. Faltam a validação do universo oficial por atualização/modo, os ficheiros e as condições de uso de toda a biblioteca visual. **Inventário de IDs não é biblioteca pronta.** O detalhe, evidências e lacunas estão na [auditoria de dependências](audit/README.md).
 
 ## 1. Alterações finais incorporadas
 
@@ -30,7 +30,7 @@ O detalhe de campos, validações e fronteiras por edição está em PRODUCT-PLA
 - A arquitetura continua inspirada na referência da Luz, com adaptação ao clube.
 - O vestiário é uma sala 3D navegável com uma cabine por atleta; a câmara percorre o espaço e as cabines, por gestos/controlos e com alternativa acessível.
 - Selecionar uma cabine/camisola abre a página daquele jogador ou jogadora. Ao voltar, recuperar a posição de câmara e a cabine visitada; distinguir clique de arrasto para evitar aberturas acidentais.
-- Estados do calendário do save: dia normal só com as cabines; pré-jogo com camisolas viradas de costas, nomes, números e patches/variante adequados quando disponíveis; pós-jogo com bolas de hat-trick e distinções de melhor em campo junto dos respetivos atletas, quando registadas.
+- Estados do calendário do save: dia normal só com as cabines; dia de jogo com a frente da camisola visível e o nome/número na placa acima do cabide/cabine; pós-jogo com bolas de hat-trick e distinções de melhor em campo junto dos respetivos atletas, quando registadas.
 - Peças pós-jogo abrem a partida e podem integrar o museu sem duplicar conquistas. A mudança para a vista normal remove a exposição temporária, preservando os dados e o museu.
 - Molduras/painéis podem mostrar fotografia real, uma frase, emblema ou símbolo/mascote, conforme o tema e os recursos disponíveis.
 - Exemplos fornecidos pelo utilizador: COYS, diabo vermelho e águia.
@@ -76,7 +76,7 @@ O detalhe de campos, validações e fronteiras por edição está em PRODUCT-PLA
 | Desafios | Catálogo por papel, duração e condições, com transfer ban e sorteio filtrado |
 | Preferências | Seis idiomas, moedas, medidas, visibilidade do catálogo e definições por carreira |
 | Conta | Login, sincronização Supabase, isolamento por utilizador, cópias, histórico e desfazer alterações |
-| IA | Testar Groq Free e WebLLM; possível configuração titular/reserva; decisões continuam com o utilizador |
+| IA | Empresário/a para jogador/a e auxiliar para treinador/a; Groq Free e Cloudflare Workers AI opcionais, com consentimentos separados e reserva explícita |
 | Legal e apresentação | Recursos autênticos, créditos/licenças, privacidade e cookies para UE/Brasil, fluidez e acessibilidade |
 
 ## 3. Decisões de implementação fechadas
@@ -98,7 +98,7 @@ O detalhe de campos, validações e fronteiras por edição está em PRODUCT-PLA
 - Three.js/React Three Fiber para as cenas 3D, com carregamento a pedido, adaptação de qualidade e alternativa estática.
 - Supabase Auth, Postgres e Storage para contas, dados e ficheiros, com migrações e políticas de acesso.
 - Funções de servidor na Vercel ou Supabase para segredos e pedidos autorizados a fornecedores, incluindo IA remota. Validar as rotas e o encaminhamento da aplicação durante a implementação.
-- WebLLM num worker quando o dispositivo for compatível e a opção estiver ativada.
+- WebLLM local fica como alternativa futura; não foi incluída nesta implementação.
 - Adaptadores para catálogo, imagens, persistência e IA, evitando acoplar o produto a um único fornecedor.
 
 ## 5. Fontes e configurações: o que está decidido e o que falta executar
@@ -117,8 +117,10 @@ O detalhe de campos, validações e fronteiras por edição está em PRODUCT-PLA
 | Materiais 3D | Modelação própria cuidada, materiais e iluminação reais | Poly Haven/ambientCG com CC0 verificado para os próprios recursos; ficheiros específicos e modelos finais ainda por criar/selecionar. Não abrangem marcas/troféus de terceiros |
 | Câmbio | Frankfurter para apresentação noutras moedas, preservando valores originais | Endpoint público testado sem chave com EUR/GBP/USD/BRL; ainda não integrado |
 | Supabase | Preparar esquema, migrações, políticas e integração | O utilizador configurará o projeto. Faltam projeto/chaves e testes; armazenamento/tráfego gratuitos têm limites. O SMTP padrão restringe destinatários à equipa: configurar envio próprio ou OAuth adequado antes de anunciar autenticação pública |
-| Groq Free | Testar adaptador remoto gratuito | Plano documentado, sem chave/configuração nem teste de respostas neste site |
-| WebLLM | Testar adaptador local e eventual reserva | Sem download de modelo, integração ou avaliação de desempenho realizada |
+| Groq Free | Principal opcional | Endpoint Vercel implementado; chave não fornecida nem teste real com fornecedor nesta sessão |
+| Cloudflare Workers AI | Reserva opcional/selecionável | Endpoint e fallback implementados; token e Account ID não configurados; quota free e termos verificados |
+| Gemini | Não integrar no plano gratuito para o site UE | Termos exigem Paid Services para API clients disponibilizados no EEE e limitam apps destinadas a menores de 18 anos |
+| WebLLM | Alternativa local futura | Sem download nem teste de hardware; fica fora deste build |
 | Documentos legais | Adaptar ao serviço real em UE/Brasil | Identidade/contacto do responsável, fornecedores ativos, região de armazenamento e retenções precisam de corresponder à configuração final |
 
 As dependências não resolvidas não serão escondidas com dados inventados. Não há autorização de construção nesta auditoria. O pedido de todos os recursos autênticos não foi reduzido a alguns clubes nem substituído por um plano pago ou recursos genéricos.
@@ -167,11 +169,11 @@ As fases seguintes acrescentam a gestão financeira detalhada, recrutamento/acad
 - Há código inicial no workspace com modelos, formulários e páginas, anterior a muitas decisões deste plano.
 - O protótipo ainda usa época como texto, um só onze e taxa única de transferência; terá de ser adaptado ao modelo aprovado.
 - O ficheiro de estilos importado pela entrada ainda não existe; não se trata de uma versão pronta a demonstrar ou publicar.
-- Não há APIs externas, Supabase ou IA ligados. Nesta auditoria, `npm run build` foi executado: TypeScript passou e Vite falhou por falta de `src/styles.css`. Não foram efetuados testes funcionais da aplicação completa nem validação de produção.
+- Não há APIs de dados de futebol nem Supabase ligados. Há uma rota opcional para Groq e Cloudflare AI, sem chaves configuradas. Nesta implementação, `npm test` e `npm run build` passam; o Vite assinala o chunk 3D acima de 500 KB. Não foi feita validação visual em browsers/dispositivos nem teste de produção.
 - O repositório [Haazug/CAREERTRACKER](https://github.com/Haazug/CAREERTRACKER) foi consultado nesta revisão: continua com tamanho reportado de 0 e permissão de escrita disponível. O código local ainda não foi enviado.
 - Primeira fundação implementada: folha de estilos responsiva, percurso de criação com os quatro papéis, época de arranque por edição, biblioteca de equipas de exemplo explicitamente identificada, seleção de treinador existente desativada até validação, créditos do recurso fotográfico e instruções para correr e publicar. Build Vite aprovado nesta etapa.
 - Primeiros ficheiros enviados para [Haazug/CAREERTRACKER](https://github.com/Haazug/CAREERTRACKER), ramo `main`. A documentação deixa claro que o catálogo demonstrativo, as camisolas e a sincronização não são oficiais nem estão ligados a serviços externos.
-- Próximo trabalho: substituir o estado visual de grelha por balneário 3D original navegável; estruturar épocas/arquivo e contextos de carreira antes de sincronização; aprofundar a base de dados e construir fluxos de scouting, finanças, IA e privacidade. Não há autenticação, conta Supabase ou assistente ligado nesta etapa.
+- Próximo trabalho: configurar chaves gratuitas se o operador quiser ativar IA, experimentar respostas com saves reais, validar browser/dispositivos, completar integração Supabase e atualizar as minutas legais para o operador e deploy efetivos.
 
 ## Decisão recomendada
 
