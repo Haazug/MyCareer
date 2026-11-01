@@ -1,26 +1,26 @@
 # Touchline
 
-Independent career tracker for football careers.
+Tracker independente para guardar carreiras de futebol no FC 26/27. A versão atual inclui carreiras guardadas localmente, cópias JSON, calendário e registo de jogos, resumos/arquivo de épocas, planos táticos múltiplos, scout manual, finanças, troféus e balneário 3D procedural.
 
-## Run locally
+## Correr localmente
 
 ```sh
 npm install
 npm run dev
 ```
 
-Production build: `npm run build`. The Vite output directory is `dist/`; `vercel.json` routes application paths to the entry point.
+Verificações locais: `npm test` e `npm run build`. O diretório de saída do Vite é `dist/`. O projeto inclui configuração para Vercel; ainda não foi publicado.
 
-## Current state
+## Estado dos dados
 
-The React/TypeScript application currently stores careers in the browser and supports JSON backup export/import. Demo squads and clubs are editable examples, not an official FC database. It has no game connection, save importer, accounts, or cross-device sync yet.
+O catálogo curto de equipas e os plantéis-semente são editáveis, demonstrativos e não oficiais. A aplicação não está ligada ao FC nem importa saves. Os registos ficam no armazenamento local do browser; exporta uma cópia antes de mudares de dispositivo ou apagares os dados do site.
 
-The verified full catalogue, licensed shirts and lettering, advanced 3D scenes, scout estimates, and AI advisers remain in progress. Review `GREENLIGHT-REPORT.md` and `audit/README.md` for current source findings and dependencies. Candidate data registers under `audit/registers/` are excluded from Git because their republishing permissions are unestablished.
+Jogadores, jogos, OVR, preços de scout e movimentos são introduzidos pelo utilizador. Não há conta, sincronização Supabase, IA generativa ou API externa ativa nesta versão. As opções investigadas, termos, licenças e estado de cada dependência estão em [SOURCES-AND-RIGHTS.md](SOURCES-AND-RIGHTS.md). A validação dos equipamentos e tipos de letra está em [audit/README.md](audit/README.md) e [GREENLIGHT-REPORT.md](GREENLIGHT-REPORT.md).
 
-## Deploy to Vercel
+## Deploy na Vercel
 
-Import the repository, choose Vite, use `npm run build`, and set output to `dist`. No environment variables are needed for this local-only foundation.
+Importar o repositório, selecionar Vite e manter o comando de build `npm run build` e diretório de saída `dist`. Não são necessárias variáveis de ambiente para as funções atuais. As minutas legais não estão prontas para lançamento até preencher a identidade/contacto do operador e rever fornecedores de alojamento.
 
-## Rights and credits
+## Direitos e créditos
 
-This independent project is not affiliated with EA SPORTS, leagues, or clubs. Club/game data, badges, shirts and third-party assets require rights validation before public use. The illustrative stadium image is an Unsplash image, ID `photo-1522778119026-d647f0596c20`; details are in the in-app Credits & Data panel. Demo shirt lettering is generic and not presented as official.
+O projeto não é afiliado à EA Sports, às competições nem aos clubes. Kits, fontes, faces, escudos ou estatísticas provenientes de terceiros só podem ser publicados com direitos verificados; nenhum asset oficial do FC está incluído. O balneário, camisolas e troféus atuais são modelos demonstrativos próprios. A imagem ilustrativa de estádio veio de Unsplash, ficheiro `photo-1522778119026-d647f0596c20`; créditos e políticas encontram-se na aplicação e em `SOURCES-AND-RIGHTS.md`.
