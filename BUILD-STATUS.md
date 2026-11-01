@@ -20,7 +20,7 @@ Atualizado em 1 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](h
 
 Não existe aqui uma biblioteca autenticada de camisolas, fontes de números/nomes, emblemas ou faces FC 26/27. Os sites pedidos estão ligados como pesquisa manual quando adequado, mas seus dados/PNGs não são copiados. A auditoria de duas amostras encontrou 7 799 linhas candidatas de kits e 665 combinações de IDs de lettering, mas nenhum ficheiro aprovado para produção. IDs de bases do jogo e um leitor sob licença MIT não liberam o conteúdo subjacente. Não extraímos nem republicamos assets do FC.
 
-As formas, texturas 3D, troféu ilustrativo e brasões genéricos são placeholders próprios; o lettering atual é genérico. A documentação das fontes gratuitas destaca OpenFootball para calendários/resultados públicos com licença CC0, TheSportsDB apenas para metadados e artwork cuja licença individual seja demonstrada, e fontes com SIL Open Font License para eventual tipografia de interface. Nenhuma dessas fontes é apresentada como completa ou autenticada para o modo carreira FC.
+As formas, texturas 3D, troféu ilustrativo e brasões genéricos são placeholders próprios; o lettering atual é genérico. O calendário inclui importador opcional OpenFootball (CC0) para dez competições masculinas, que guarda apenas datas, jornadas e adversários; resultados reais são descartados e a cobertura não representa a agenda do FC. Kits DLS do football-logos.cc, índice 26/27 da Footy Headlines e Football Kit Archive são referências manuais, nunca assets copiados. Nenhuma fonte é apresentada como catálogo oficial ou completo do modo carreira FC.
 
 ## Verificação
 
