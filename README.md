@@ -1,6 +1,6 @@
 # Touchline
 
-Tracker independente para guardar carreiras de futebol no FC 26/27. A versão atual inclui carreiras guardadas localmente, cópias JSON, assistente de carreira e sorteio de desafios, calendário e registo de jogos, resumos/arquivo de épocas, planos táticos múltiplos, scout manual, academia de formação para treinadores, objetivos e museu pessoal para jogador/a, registos de disciplina e lesões, empréstimos e pagamentos faseados, finanças, troféus e balneário 3D procedural.
+Tracker independente para guardar carreiras de futebol no FC 26/27. A versão atual inclui carreiras guardadas localmente, cópias JSON, assistente de carreira e sorteio de desafios, calendário e registo de jogos, resumos/arquivo de épocas, planos táticos múltiplos com banco de suplentes ordenável, scout manual, academia de formação para treinadores, objetivos e museu pessoal para jogador/a, registos de disciplina e lesões, empréstimos e pagamentos faseados, finanças, troféus e balneário 3D procedural.
 
 ## Correr localmente
 

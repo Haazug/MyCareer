@@ -38,6 +38,7 @@ test('older browser saves migrate without losing games and add season tags', () 
   assert.deepEqual(restored.academy, []);
   assert.deepEqual(restored.goals, []);
   assert.deepEqual(restored.playerMuseum, []);
+  assert.equal(restored.bench.length, restored.players.length - 11);
 });
 
 test('installments split cents exactly and keep valid month-end dates', async () => {
@@ -78,4 +79,14 @@ test('transfer ban challenges block incoming signings, including loans and free 
   assert.equal(isTransferAllowed({challenge},'in'),false);
   assert.equal(isTransferAllowed({challenge},'out'),true);
   assert.equal(isTransferAllowed({},'in'),true);
+});
+
+test('saved squad plans retain an ordered bench and old plans migrate', () => {
+  const career=initialCareer();
+  const bench=career.players.slice(11,15).map(p=>p.id);
+  career.bench=bench;
+  career.squadPlans=[{id:'plan',name:'Jogo grande',formation:'4-3-3',lineup:[...career.lineup],bench:[...bench].reverse()}];
+  const restored=parseStore(JSON.stringify({version:1,activeId:career.id,careers:[career]})).careers[0];
+  assert.deepEqual(restored.squadPlans[0].bench,[...bench].reverse());
+  assert.deepEqual(restored.bench,bench);
 });

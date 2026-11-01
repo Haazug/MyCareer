@@ -8,7 +8,7 @@ Atualizado em 1 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](h
 - O assistente de carreira inicia FC 26 em 2025/26 e FC 27 em 2026/27; as carreiras podem guardar no máximo 15 épocas. A entrada inclui sorteio de carreira, seleção de desafio curto/longo e cenários distintos de jogador/a e treinador/a; o desafio fica visível na carreira e o transfer ban bloqueia novas contratações (incluindo gratuitas e empréstimos).
 - Carreiras antigas migram ao carregar, mantendo jogos e adicionando época aos registos antigos; exportação/importação passa pela validação do modelo.
 - A nova página de épocas permite fechar temporadas, guardar resumos coletivos e individuais, consultar resultados de jogadores e manter partidas no histórico. Os nomes Época, Season, Saison, Temporada e Stagione estão disponíveis.
-- A página de tática permite guardar e carregar até 30 plantéis com formação e onze próprios (só aparece em carreira de treinador/treinadora).
+- A página de tática permite guardar e carregar até 30 plantéis com formação, onze e banco de suplentes ordenável (só aparece em carreira de treinador/treinadora); planos antigos migram automaticamente.
 - A carreira de jogador/a tem uma página separada para objetivos pessoais e clubes-alvo, com progresso editável; a carreira de treinador/a tem scout e academia próprios. Ainda não há parecer de agente ou auxiliar gerado por IA.
 - A academia de formação permite adicionar jovens, acompanhar OVR/potencial/estatísticas manualmente e promovê-los ao plantel.
 - O scout permite criar observações manuais em pastas, pesquisar, editar estados, registar potencial e adicionar uma estimativa de preço antes de guardar. O preço fica marcado como manual ou desconhecido porque nenhuma cotação licenciada está ligada.
@@ -24,7 +24,7 @@ As formas, texturas 3D, troféu ilustrativo e brasões genéricos são placehold
 
 ## Verificação
 
-- `npm test`: testes de migração, épocas/traduções/limites, prestações, empréstimos e saldo futuro passam.
+- `npm test`: testes de migração, épocas/traduções/limites, prestações, empréstimos, banco ordenado, transfer ban e saldo futuro passam.
 - `npm run build`: TypeScript e Vite passam.
 - O build separa o balneário 3D do carregamento inicial. O chunk de Three.js continua com cerca de 525 KB minificados (130 KB gzip); a compilação sinaliza-o para otimização posterior.
 - A cena não foi testada visualmente num browser ou em vários dispositivos nesta sessão. Movimento/fps, colisões e qualidade em telemóvel precisam de ensaio real.
