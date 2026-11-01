@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createCareer, nextSeason, parseStore, seasonLabel } from '../src/model.ts';
+import { balance, createCareer, isAvailable, nextSeason, parseStore, seasonLabel, splitPayment, today } from '../src/model.ts';
 
 const initialCareer = () => createCareer({
   name: 'Carreira de teste', mode: 'manager', gender: 'female', game: 'FC 26',
@@ -37,4 +37,38 @@ test('older browser saves migrate without losing games and add season tags', () 
   assert.deepEqual(restored.scouting, []);
   assert.deepEqual(restored.academy, []);
   assert.deepEqual(restored.goals, []);
+  assert.deepEqual(restored.playerMuseum, []);
+});
+
+test('installments split cents exactly and keep valid month-end dates', async () => {
+  const payments = splitPayment(100, 3, '2026-01-31');
+  assert.deepEqual(payments.map(p => p.amount), [33.34, 33.33, 33.33]);
+  assert.deepEqual(payments.map(p => p.date), ['2026-01-31', '2026-02-28', '2026-03-31']);
+  assert.equal(payments.reduce((sum, p) => sum + p.amount, 0), 100);
+});
+
+test('legacy player careers receive a manual discipline and confidence record', () => {
+  const career = createCareer({ name:'Jogadora',mode:'player',gender:'female',game:'FC 27',season:'2026/27',person:'Atleta',club:'SL Benfica',color:'#df302e',created:true });
+  delete career.playerRecord;
+  const restored = parseStore(JSON.stringify({version:1,activeId:career.id,careers:[career]})).careers[0];
+  assert.deepEqual(restored.playerRecord,{yellowCards:0,redCards:0,matchesMissed:0,coachConfidence:50,injuries:[]});
+});
+
+
+test('loans temporarily remove and restore a player from selection', () => {
+  const base = {id:'p',name:'Test',number:10,position:'MC',overall:70,age:20,nation:'PT',salary:0,contract:'2027-06-30'};
+  const future = new Date(Date.now()+30*86400000).toISOString().slice(0,10);
+  const past = new Date(Date.now()-30*86400000).toISOString().slice(0,10);
+  assert.equal(isAvailable({...base,loanedTo:'Other FC',loanUntil:future}),false);
+  assert.equal(isAvailable({...base,loanedTo:'Other FC',loanUntil:past}),true);
+  assert.equal(isAvailable({...base,loanedFrom:'Other FC',loanUntil:future}),true);
+  assert.equal(isAvailable({...base,loanedFrom:'Other FC',loanUntil:past}),false);
+});
+
+test('scheduled installments do not reduce the available balance early', () => {
+  const career=initialCareer();career.budget=1000;career.transactions=[
+    {id:'paid',label:'Pago',amount:-100,date:today(),category:'Transferências',status:'paid'},
+    {id:'future',label:'Futuro',amount:-200,date:'2099-01-01',category:'Transferências',status:'scheduled'},
+  ];
+  assert.equal(balance(career),900);
 });

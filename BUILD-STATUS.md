@@ -24,7 +24,7 @@ As formas, texturas 3D, troféu ilustrativo e brasões genéricos são placehold
 
 ## Verificação
 
-- `npm test`: 3 verificações de migração, traduções e limite de 15 épocas passam.
+- `npm test`: testes de migração, épocas/traduções/limites, prestações, empréstimos e saldo futuro passam.
 - `npm run build`: TypeScript e Vite passam.
 - O build separa o balneário 3D do carregamento inicial. O chunk de Three.js continua com cerca de 525 KB minificados (130 KB gzip); a compilação sinaliza-o para otimização posterior.
 - A cena não foi testada visualmente num browser ou em vários dispositivos nesta sessão. Movimento/fps, colisões e qualidade em telemóvel precisam de ensaio real.
