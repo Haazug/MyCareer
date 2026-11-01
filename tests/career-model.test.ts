@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { balance, createCareer, isAvailable, nextSeason, parseStore, seasonLabel, splitPayment, today } from '../src/model.ts';
+import { balance, createCareer, isAvailable, isTransferAllowed, nextSeason, parseStore, seasonLabel, splitPayment, today } from '../src/model.ts';
 
 const initialCareer = () => createCareer({
   name: 'Carreira de teste', mode: 'manager', gender: 'female', game: 'FC 26',
@@ -71,4 +71,11 @@ test('scheduled installments do not reduce the available balance early', () => {
     {id:'future',label:'Futuro',amount:-200,date:'2099-01-01',category:'Transferências',status:'scheduled'},
   ];
   assert.equal(balance(career),900);
+});
+
+test('transfer ban challenges block incoming signings, including loans and free agents', () => {
+  const challenge={title:'Transfer ban',description:'No signings',duration:'long' as const,transferBan:true};
+  assert.equal(isTransferAllowed({challenge},'in'),false);
+  assert.equal(isTransferAllowed({challenge},'out'),true);
+  assert.equal(isTransferAllowed({},'in'),true);
 });

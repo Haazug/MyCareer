@@ -16,12 +16,14 @@ export type CareerGoal = { id: string; title: string; kind: 'personal'|'club-tar
 export type PlayerInjury = { id: string; name: string; startDate: string; returnDate: string; matchesMissed: number; status: string };
 export type PlayerCareerRecord = { yellowCards: number; redCards: number; matchesMissed: number; coachConfidence: number; injuries: PlayerInjury[] };
 export type MuseumItem = { id: string; kind: 'shirt'|'scarf'|'ball'|'award'|'phrase'; title: string; club: string; season: string; number: number; color: string; detail: string; match: string };
-export type Career = { id: string; name: string; mode: Mode; gender: Gender; game: string; season: string; seasons?: SeasonArchive[]; squadPlans?: SquadPlan[]; scouting?: ScoutReport[]; academy?: AcademyProspect[]; goals?: CareerGoal[]; playerRecord?: PlayerCareerRecord; playerMuseum?: MuseumItem[]; person: string; club: string; color: string; created: boolean; playerId: string; players: Player[]; matches: Match[]; transactions: Transaction[]; transfers: Transfer[]; trophies: Trophy[]; notes: Note[]; formation: string; lineup: string[]; budget: number; demo: boolean };
+export type CareerChallenge = { title: string; description: string; duration: 'short'|'long'; transferBan: boolean };
+export type Career = { id: string; name: string; mode: Mode; gender: Gender; game: string; season: string; challenge?: CareerChallenge; seasons?: SeasonArchive[]; squadPlans?: SquadPlan[]; scouting?: ScoutReport[]; academy?: AcademyProspect[]; goals?: CareerGoal[]; playerRecord?: PlayerCareerRecord; playerMuseum?: MuseumItem[]; person: string; club: string; color: string; created: boolean; playerId: string; players: Player[]; matches: Match[]; transactions: Transaction[]; transfers: Transfer[]; trophies: Trophy[]; notes: Note[]; formation: string; lineup: string[]; budget: number; demo: boolean };
 export type Store = { version: 1; activeId: string; careers: Career[] };
 export const STORAGE_KEY = 'touchline-career-v1';
 export const uid = () => crypto.randomUUID();
 export const today = () => new Date().toISOString().slice(0, 10);
 export function isAvailable(player:Player) { const now=today(); if(player.active===false)return false;if(player.loanedTo&&(!player.loanUntil||now<=player.loanUntil))return false;if(player.loanedFrom&&player.loanUntil&&now>player.loanUntil)return false;return true; }
+export function isTransferAllowed(career:Pick<Career,'challenge'>,direction:Transfer['direction']) { return !(direction==='in'&&career.challenge?.transferBan); }
 export function splitPayment(total:number,count:number,startDate:string) {const cents=Math.round(total*100);const base=Math.floor(cents/count);let remainder=cents-base*count;const [year,month,day]=startDate.split('-').map(Number);return Array.from({length:count},(_,i)=>{const monthIndex=month-1+i;const y=year+Math.floor(monthIndex/12);const m=monthIndex%12;const maxDay=new Date(y,m+1,0).getDate();const d=Math.min(day,maxDay);const amount=(base+(remainder-->0?1:0))/100;return {date:`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,amount};});}
 export const money = (amount: number) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount);
 export const compactMoney = (amount: number) => Math.abs(amount) >= 1e6 ? `${(amount / 1e6).toLocaleString('pt-PT', { maximumFractionDigits: 1 })} M€` : money(amount);
@@ -50,7 +52,7 @@ export function seedPlayers(gender: Gender, club: string): Player[] {
   const numbers = [1,26,30,44,17,8,61,18,7,14,21,24,4,85,27,25,39,84];
   return (club === 'SL Benfica' ? gender === 'male' ? male : female : slots.map((_, i) => `${gender === 'male' ? 'Jogador' : 'Jogadora'} ${i + 1}`)).map((name,i) => ({ id: uid(), name, position: slots[i], number: numbers[i], overall: 75 + (i % 9), age: 21 + (i % 13), nation: 'Portugal', salary: 0, contract: '2027-06-30' }));
 }
-export function createCareer(input: Pick<Career, 'name'|'mode'|'gender'|'game'|'season'|'person'|'club'|'color'|'created'> & { position?: string; number?: number }): Career {
+export function createCareer(input: Pick<Career, 'name'|'mode'|'gender'|'game'|'season'|'person'|'club'|'color'|'created'> & { position?: string; number?: number; challenge?:CareerChallenge }): Career {
   const players = seedPlayers(input.gender, input.club);
   let playerId = '';
   if (input.mode === 'player') {
@@ -112,6 +114,7 @@ export function parseStore(raw: string): Store {
     if(c.goals!==undefined&&(!Array.isArray(c.goals)||c.goals.length>300||!c.goals.every(g=>g&&['id','title','season','status','notes'].every(k=>string(g[k as keyof CareerGoal]))&&['personal','club-target'].includes(g.kind)&&finite(g.target)&&finite(g.progress)))) throw new Error('Objetivos de carreira inválidos.');
     if(c.playerRecord!==undefined&&(!c.playerRecord||!finite(c.playerRecord.yellowCards,0,999)||!finite(c.playerRecord.redCards,0,999)||!finite(c.playerRecord.matchesMissed,0,9999)||!finite(c.playerRecord.coachConfidence,0,100)||!Array.isArray(c.playerRecord.injuries)||!c.playerRecord.injuries.every(i=>i&&string(i.id)&&string(i.name)&&string(i.status)&&date(i.startDate)&&date(i.returnDate)&&finite(i.matchesMissed,0,999)))) throw new Error('Registo da carreira de jogador inválido.');
     if(c.playerMuseum!==undefined&&(!Array.isArray(c.playerMuseum)||c.playerMuseum.length>1000||!c.playerMuseum.every(i=>i&&string(i.id)&&string(i.title)&&string(i.club)&&string(i.season)&&string(i.detail)&&string(i.match)&&/^#[\da-f]{6}$/i.test(i.color)&&finite(i.number,0,99)&&['shirt','scarf','ball','award','phrase'].includes(i.kind)))) throw new Error('Peças do museu inválidas.');
+    if(c.challenge!==undefined&&(!c.challenge||!string(c.challenge.title)||!string(c.challenge.description)||!['short','long'].includes(c.challenge.duration)||typeof c.challenge.transferBan!=='boolean')) throw new Error('Desafio de carreira inválido.');
   }
   if(data.activeId && !ids.has(data.activeId)) throw new Error('Carreira ativa não encontrada.');
   return { ...data, careers: data.careers.map(c => ({ ...c, seasons: c.seasons ?? [], squadPlans:c.squadPlans??[], scouting:c.scouting??[], academy:c.academy??[], goals:c.goals??[], playerMuseum:c.playerMuseum??[], ...(c.mode==='player'?{playerRecord:c.playerRecord??{yellowCards:0,redCards:0,matchesMissed:0,coachConfidence:50,injuries:[]}}:{}), matches: c.matches.map(m => ({ ...m, season: m.season ?? c.season })) })) };

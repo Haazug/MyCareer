@@ -5,7 +5,7 @@ Atualizado em 1 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](h
 ## Avanço local preparado para sincronização
 
 - O build original foi recuperado com folha de estilos responsiva e aplicação inicial em React, TypeScript e Vite.
-- O assistente de carreira inicia FC 26 em 2025/26 e FC 27 em 2026/27; as carreiras podem guardar no máximo 15 épocas.
+- O assistente de carreira inicia FC 26 em 2025/26 e FC 27 em 2026/27; as carreiras podem guardar no máximo 15 épocas. A entrada inclui sorteio de carreira, seleção de desafio curto/longo e cenários distintos de jogador/a e treinador/a; o desafio fica visível na carreira e o transfer ban bloqueia novas contratações (incluindo gratuitas e empréstimos).
 - Carreiras antigas migram ao carregar, mantendo jogos e adicionando época aos registos antigos; exportação/importação passa pela validação do modelo.
 - A nova página de épocas permite fechar temporadas, guardar resumos coletivos e individuais, consultar resultados de jogadores e manter partidas no histórico. Os nomes Época, Season, Saison, Temporada e Stagione estão disponíveis.
 - A página de tática permite guardar e carregar até 30 plantéis com formação e onze próprios (só aparece em carreira de treinador/treinadora).
@@ -35,7 +35,7 @@ As formas, texturas 3D, troféu ilustrativo e brasões genéricos são placehold
 2. Uniformes, logos, faces e fontes oficiais por kit/competição com licença de exibição e adaptação confirmada. O registo não tem tal biblioteca, pelo que a versão atual usa peças próprias.
 3. Autenticação/sincronização Supabase, isolamento entre contas, recuperação de senha e política de retenção; nenhuma conta está configurada.
 4. IA generativa do agente e do auxiliar: WebLLM e Groq foram registados como opções candidatas, mas ainda não foram integrados, avaliados com saves reais ou oferecidos na aplicação.
-5. Funcionalidade aprofundada de jogador versus treinador/treinadora, academia de formação, lesões/suspensões/confiança, transferências completas com pagamentos por parcelas e empréstimos, objetivos/desafios, scout alimentado por base real, museu jogável e vista de partidas.
+5. Evolução e validação dos fluxos de jogador versus treinador/treinadora; progressão automática de objetivos/desafios e fim de transfer ban por período ainda não existem. A gestão aprofundada de contratos/lesões/suspensões, scout com dados reais, museu jogável e vista completa de partidas também permanece por construir.
 6. Personalização completa de moedas, unidades, idiomas por toda a aplicação e filtros de género nas definições da carreira.
 7. Política legal final adaptada à identidade do operador e fornecedores ativos; teste visual/acessibilidade, compatibilidade móvel, cópias de segurança e navegação completa.
 8. Sincronização das alterações locais para o GitHub `main`; ainda não publicada na Vercel.
