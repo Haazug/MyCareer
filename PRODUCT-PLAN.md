@@ -2,7 +2,7 @@
 
 ## Estado
 
-A implementação está em pausa. A instrução mais recente é consolidar o plano agora e aguardar a luz verde do utilizador para a construção, com as referências finais do balneário quando forem enviadas. A chegada de imagens, por si só, não substitui esta indicação mais recente. As recomendações de organização/entrega foram aprovadas, bem como avaliar as duas opções de IA e poder manter uma titular e outra de reserva. Novas sugestões fora deste âmbito devem ser identificadas como propostas até aceitação. O código inicial encontra-se no workspace e ainda não foi enviado para o GitHub. Repositório escolhido: https://github.com/Haazug/CAREERTRACKER. Destino pretendido: Vercel.
+A luz verde para a construção foi recebida em 1 de novembro de 2026. O projeto avança por etapas, sem publicitar como autêntico nenhum catálogo ou recurso visual que ainda não tenha fonte/licença confirmada. O utilizador aprovou as recomendações de organização/entrega, a comparação das duas IAs e a possibilidade de titular/reserva. Repositório escolhido: https://github.com/Haazug/CAREERTRACKER. Destino pretendido: Vercel; não publicar nem configurar serviços sem necessidade de entrega.
 
 ## Direção visual aprovada
 
@@ -526,14 +526,14 @@ Preparar tradução da interface, formulários, validações, datas, números e 
 - Camisolas e fontes exatas do clube não estão garantidas. Enquanto não existirem ficheiros adequados, sinalizar a limitação sem apresentar material inventado como oficial; conteúdo ilustrativo só em demonstrações explicitamente identificadas.
 - Não há APIs externas ativas no código atual.
 
-## Auditoria de dependências antes da luz verde — 01/11/2026
+## Auditoria de dependências iniciada antes da luz verde — 01/11/2026
 
 - Exigência reforçada pelo utilizador: investigar todos os uniformes e respetivo lettering das ligas, clubes e seleções licenciados em FC 26 e FC 27, incluindo equipas femininas e masculinas. A regra da temporada corrente/anterior mantém-se; não reduz a cobertura a alguns clubes.
 - Relatório e evidências: [audit/README.md](audit/README.md). Inventário interno candidato: 1 669 linhas de equipas, 7 799 de equipamentos, 1 979 alterações por competição e 665 combinações edição/tipo/ID de fonte. Não confundir estes registos com o universo oficial, ficheiros físicos diferentes ou recursos já aprovados.
 - Cada equipamento requer equipa/género, temporada real, variante, competição, lettering de nome/número, patches, emblema, origem, condições de uso, ficheiro e verificação visual. Aceitar glifos/texturas autorizados quando apropriado; converter formatos não resolve direitos em falta.
 - A fonte pode mudar entre liga e Europa e entre camisolas do mesmo clube. Não herdar automaticamente a fonte da equipa masculina para a feminina ou de uma seleção para outra pelo fabricante.
 - Fornecedores físicos identificados para alguns grupos: Avery Dennison e ID UNLIMITED. A existência de fornecedor/parceria não prova disponibilidade de ficheiro gratuito nem licença digital para o projeto. As restantes linhas permanecem explicitamente pendentes.
-- Nenhuma biblioteca completa de fontes/uniformes autênticos com uso público gratuito foi validada. Nenhuma peça visual foi marcada pronta. A recomendação de luz verde anterior foi revista para tornar esta dependência visível antes da construção.
+- Nenhuma biblioteca completa de fontes/uniformes autênticos com uso público gratuito foi validada. Nenhuma peça visual foi marcada pronta. A luz verde do utilizador autoriza a construção do tracker; a biblioteca completa continua a exigir ficheiros/permissões e não pode ser apresentada como pronta.
 - A política EA não concede direitos sobre conteúdo de terceiros e proíbe obter assets por data mining. Não adotar extração dos ficheiros do jogo como reserva automática de uniformes, fontes ou faces. Fonte: https://help.ea.com/en/articles/security-and-rules/ea-content-policy/ .
 - TheSportsDB foi testada com chave pública: a amostra gratuita de equipamentos de Arsenal/Benfica devolveu apenas duas versões antigas por equipa, sem fontes. Não selecionar como fonte suficiente da biblioteca atual/anterior.
 - Wikimedia Commons teve uma chamada de metadados de retrato real bem-sucedida, mas não tem cobertura integral demonstrada. Guardar licença/autor por fotografia; fotos reais não equivalem a faces/modelos 3D.
@@ -578,7 +578,7 @@ Preparar tradução da interface, formulários, validações, datas, números e 
 - Usar subnavegação e painéis contextuais, com áreas indisponíveis omitidas para o papel respetivo. Não criar quatro aplicações independentes nem copiar menus de gestão para atletas.
 - Definições de conta/carreira, idiomas, moedas/medidas, privacidade e cópias ficam agrupadas. O assistente tem acesso contextual sem competir com a navegação principal.
 
-## Etapas aprovadas para depois da luz verde
+## Etapas de construção aprovadas
 
 1. Fundação: rever referências, esquema histórico das carreiras/épocas/passagens/atributos/equipamentos, quatro experiências, traduções, preferências, propriedade dos dados e adaptação Supabase. A ligação efetiva depende da configuração do projeto do utilizador.
 2. Primeiro percurso utilizável: entrada e criação/continuação, catálogo FC validado/importação, central, balneário inicial autêntico, vários planos de equipa, registo rápido de jogos com recuperação de rascunhos, estatísticas e fecho de época. Edição, persistência e exportação/importação verificadas.

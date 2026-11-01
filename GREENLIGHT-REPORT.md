@@ -2,7 +2,7 @@
 
 ## Veredicto
 
-**Revisão de 1 de novembro de 2026: a cobertura gratuita e autêntica de todos os uniformes/fontes ainda não está demonstrada.** A recomendação anterior era demasiado otimista ao deixar estas dependências para a construção. O utilizador pediu que fossem investigadas antes da luz verde; essa condição mantém-se.
+**Luz verde recebida em 1 de novembro de 2026: iniciar a construção por etapas.** Cobertura gratuita e autêntica de todos os uniformes/fontes ainda não está demonstrada. Esta limitação define o que pode ser chamado de pronto e permanece no roteiro, sem suspender a construção da base funcional.
 
 O plano funcional está definido. Foram agora testadas bases candidatas das duas edições, inventariados os registos de equipamentos e ensaiadas APIs públicas. Faltam a validação do universo oficial por atualização/modo, os ficheiros e as condições de uso de toda a biblioteca visual. **Inventário de IDs não é biblioteca pronta.** O detalhe, evidências e lacunas estão na [auditoria de dependências](audit/README.md).
 
@@ -169,8 +169,10 @@ As fases seguintes acrescentam a gestão financeira detalhada, recrutamento/acad
 - O ficheiro de estilos importado pela entrada ainda não existe; não se trata de uma versão pronta a demonstrar ou publicar.
 - Não há APIs externas, Supabase ou IA ligados. Nesta auditoria, `npm run build` foi executado: TypeScript passou e Vite falhou por falta de `src/styles.css`. Não foram efetuados testes funcionais da aplicação completa nem validação de produção.
 - O repositório [Haazug/CAREERTRACKER](https://github.com/Haazug/CAREERTRACKER) foi consultado nesta revisão: continua com tamanho reportado de 0 e permissão de escrita disponível. O código local ainda não foi enviado.
-- Nesta revisão foram produzidos documentos, scripts e registos internos de pesquisa. Não foram implementadas funcionalidades do site; a construção permanece à espera da luz verde.
+- Primeira fundação implementada: folha de estilos responsiva, percurso de criação com os quatro papéis, época de arranque por edição, biblioteca de equipas de exemplo explicitamente identificada, seleção de treinador existente desativada até validação, créditos do recurso fotográfico e instruções para correr e publicar. Build Vite aprovado nesta etapa.
+- Primeiros ficheiros enviados para [Haazug/CAREERTRACKER](https://github.com/Haazug/CAREERTRACKER), ramo `main`. A documentação deixa claro que o catálogo demonstrativo, as camisolas e a sincronização não são oficiais nem estão ligados a serviços externos.
+- Próximo trabalho: substituir o estado visual de grelha por balneário 3D original navegável; estruturar épocas/arquivo e contextos de carreira antes de sincronização; aprofundar a base de dados e construir fluxos de scouting, finanças, IA e privacidade. Não há autenticação, conta Supabase ou assistente ligado nesta etapa.
 
 ## Decisão recomendada
 
-**Manter a luz verde pendente quanto à cobertura integral exigida.** O conceito está definido, mas ainda não há biblioteca completa de equipamentos/fontes com ficheiros corretos e condições compatíveis com uso público gratuito. A [auditoria](audit/README.md) distingue as dependências externas não resolvidas do trabalho que só será criado e testado durante a construção. Não apresentar o projeto como “só falta começar” enquanto esta limitação persistir.
+**Estado: construção autorizada; primeira fundação compilada e enviada para o repositório.** A cobertura integral de equipamentos/fontes permanece por validar e está documentada na [auditoria](audit/README.md). O primeiro build de produção desta base passa.
