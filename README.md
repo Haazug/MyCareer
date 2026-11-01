@@ -1,4 +1,4 @@
-# Touchline
+# MyCareer
 
 Tracker independente para guardar carreiras de futebol no FC 26/27. A versão atual inclui carreiras guardadas localmente, cópias JSON, assistente de carreira e sorteio de desafios, calendário e registo de jogos, resumos/arquivo de épocas, planos táticos múltiplos com banco de suplentes ordenável, scout manual, academia de formação para treinadores, objetivos e museu pessoal para jogador/a, registos de disciplina e lesões, empréstimos e pagamentos faseados, finanças, troféus e balneário 3D procedural.
 
@@ -20,6 +20,10 @@ Jogadores, jogos, OVR, preços de scout e movimentos são introduzidos pelo util
 ## Deploy na Vercel
 
 Importar o repositório, selecionar Vite e manter o comando de build `npm run build` e diretório de saída `dist`. Não são necessárias variáveis de ambiente para as funções atuais. As minutas legais não estão prontas para lançamento até preencher a identidade/contacto do operador e rever fornecedores de alojamento.
+
+## Identidade visual e balneários
+
+A aplicação chama-se MyCareer. O visual usa preto, branco-chalk e bege; cada carreira pode personalizar as cores, a luz, as iniciais e a frase do teto do balneário. As referências documentadas incluem Benfica (imagem enviada), Real Madrid, Barcelona, Inter e AC Milan. Os modelos atuais são originais e não usam escudos, camisolas ou fontes oficiais. Detalhes em [ROOM-INSPIRATION.md](ROOM-INSPIRATION.md).
 
 ## Direitos e créditos
 

@@ -23,6 +23,8 @@ test('season names are available in all requested languages', () => {
 
 test('older browser saves migrate without losing games and add season tags', () => {
   const career = initialCareer();
+  delete career.bench;
+  delete career.lockerStyle;
   career.matches.push({
     id: 'legacy-match', opponent: 'SC Braga', date: '2025-09-01', competition: 'Liga Portugal',
     venue: 'home', status: 'played', goalsFor: 2, goalsAgainst: 0,
@@ -39,6 +41,7 @@ test('older browser saves migrate without losing games and add season tags', () 
   assert.deepEqual(restored.goals, []);
   assert.deepEqual(restored.playerMuseum, []);
   assert.equal(restored.bench.length, restored.players.length - 11);
+  assert.equal(restored.lockerStyle.symbol,'MC');
 });
 
 test('installments split cents exactly and keep valid month-end dates', async () => {
@@ -89,4 +92,13 @@ test('saved squad plans retain an ordered bench and old plans migrate', () => {
   const restored=parseStore(JSON.stringify({version:1,activeId:career.id,careers:[career]})).careers[0];
   assert.deepEqual(restored.squadPlans[0].bench,[...bench].reverse());
   assert.deepEqual(restored.bench,bench);
+});
+
+test('locker palette and ceiling identity persist and reject unsafe colors', () => {
+  const career=initialCareer();career.lockerStyle={...career.lockerStyle!,wallColor:'#111111',accentColor:'#d2c4aa',ceilingColor:'#f2eee6',lightColor:'#fff1d5',lighting:82,symbol:'AFC',motto:'North London forever'};
+  const restored=parseStore(JSON.stringify({version:1,activeId:career.id,careers:[career]})).careers[0];
+  assert.equal(restored.lockerStyle?.symbol,'AFC');
+  assert.equal(restored.lockerStyle?.lighting,82);
+  career.lockerStyle={...career.lockerStyle!,wallColor:'url(javascript:alert(1))'};
+  assert.throws(()=>parseStore(JSON.stringify({version:1,activeId:career.id,careers:[career]})),/balneário inválida/);
 });

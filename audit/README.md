@@ -1,4 +1,4 @@
-# Touchline — auditoria antes da luz verde
+# MyCareer — auditoria antes da luz verde
 
 Revisão: 1 de novembro de 2026. Âmbito: dependências do plano aprovado, sem iniciar a construção ou publicar o site.
 
@@ -149,7 +149,7 @@ Jogos, golos, assistências, classificações, lesões, confiança do técnico, 
 | Privacidade UE/Brasil | Mercados confirmados pelo utilizador | Identidade e contacto do responsável, fornecedores reais, finalidade/bases legais, região, transferências internacionais, retenções, exportação/eliminação e canal de contacto |
 | Cookies | Mecânica depende das integrações realmente usadas | Inventariar cookies/local storage e requests externos. Consentimento/rejeição para o que o exigir, com revogação; não afirmar genericamente que nenhum fornecedor recolhe dados |
 | Créditos e marcas | Utilizador pede crédito para todas as marcas representadas | Registo por recurso, autor, licença e alteração. Lista de marcas separada da licença dos ficheiros; aviso de projeto não afiliado quando aplicável |
-| Nome do produto | “Touchline” é provisório | Disponibilidade do nome/marca não foi verificada; não pressupor domínio comprado. Subdomínio gratuito basta para o requisito de custo zero |
+| Nome do produto | MyCareer é o nome escolhido pelo utilizador para a aplicação | Disponibilidade do nome/marca ainda não foi verificada; não pressupor domínio comprado. Subdomínio gratuito basta para o requisito de custo zero |
 
 Estas são dependências concretas do produto pedido, não serviços contratados nem contas criadas. Nenhum fornecedor foi contactado e não foi assumido um custo pago.
 
