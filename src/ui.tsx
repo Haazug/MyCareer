@@ -5,7 +5,7 @@ import { clubKitDesign } from './kitDesign';
 export function Logo({ small=false }: {small?:boolean}) { return <div className={`brand ${small?'small':''}`} aria-label="MyCareer"><span className="brand-word">MyCareer<span className="brand-dot">.</span></span></div>; }
 export function Crest({ club, color='#dc4136', size=48, image }: {club:string;color?:string;size?:number;image?:string}) {
   const design = clubKitDesign(club, color);
-  return <div className="crest" style={{'--club-color':color,'--crest-secondary':design.secondary,width:size,height:size*1.16} as CSSProperties} title={`${club} · emblema conceptual MyCareer`}>
+  return <div className="crest" style={{'--club-color':design.primary,'--crest-secondary':design.secondary,width:size,height:size*1.16} as CSSProperties} title={`${club} · emblema conceptual MyCareer`}>
     {image ? <img src={image} alt={`Emblema de ${club}`}/> : <><Shield size={size*.88} strokeWidth={1}/><span className="crest-symbol" aria-hidden="true">{design.symbol}</span>{design.detail&&<b className="crest-detail" aria-hidden="true">{design.detail}</b>}<small className="crest-initials">{clubInitials(club).slice(0,3)}</small></>}
   </div>;
 }

@@ -8,7 +8,7 @@
 - Licença declarada pelo dataset: [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
 - Ficheiro adaptado: `public/data/fc26-catalog.json`
 - Conteúdo: 18 405 jogadores, 662 clubes e 42 ligas
-- Alterações: nomes e atributos colocados num catálogo JSON, posições mapeadas para as posições da app, cores conceptuais derivadas/adaptadas, URLs de retratos excluídos.
+- Alterações: nomes e atributos colocados num catálogo JSON, posições mapeadas para as posições da app e cores de clubes reaproveitadas para a paleta dos uniformes conceptuais. URLs de retratos não são embutidos na base; a ficha pode pesquisar imagens Creative Commons no Wikimedia Commons e guarda fonte, autor e licença quando o utilizador escolhe um resultado.
 - A descrição do dataset diz que a recolha de dados veio de páginas SoFIFA. O site e os retratos de SoFIFA não são incorporados.
 
 Atribuição curta para reutilização: **“FC 26 (FIFA 26) Player Data”, por rovnez, Kaggle, CC BY 4.0. Dados adaptados para MyCareer; retratos removidos. Origem descrita pelo autor: SoFIFA.**
@@ -42,4 +42,8 @@ O criador de carreira pesquisa no [Wikimedia Commons](https://commons.wikimedia.
 
 ## Kits e símbolos
 
-As camisolas mostradas no balneário, no resumo de carreira, na ficha de jogador e no museu são designs conceptuais criados em código. Cada clube tem padrões, cores e um motivo simbólico; os detalhes não copiam os kits oficiais nem incluem patrocínios, patches ou lettering do jogo. Os motivos mais reconhecíveis (por exemplo, ave, urso ou tridente) são ilustrações conceptuais do MyCareer.
+As camisolas mostradas no balneário, no resumo de carreira, na ficha de jogador e no museu são designs conceptuais criados em código. A paleta usa as cores de clube publicadas nos catálogos, e os clubes mais conhecidos têm motivos simbólicos desenhados para os distinguir (por exemplo, águia, urso, leão ou tridente). Os restantes recebem paleta, padrão, monograma e motivo determinísticos próprios. Os detalhes não copiam kits oficiais nem incluem patrocínios, patches ou lettering do jogo.
+
+### Retratos em fichas
+
+Ao abrir uma ficha sem retrato, a app consulta a pesquisa pública do Wikimedia Commons. Só apresenta candidatos com licença CC0, CC BY, CC BY-SA ou domínio público e correspondência textual suficiente; o utilizador escolhe o retrato para evitar correspondências erradas. A ficha mostra autor, licença e ligação à página original. A pesquisa pode não encontrar imagem para todos os jogadores; uma foto local também pode ser carregada pelo utilizador.
