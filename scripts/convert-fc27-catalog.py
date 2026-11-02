@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Build the compressed FC 27 player catalogue from the source CSV."""
+"""Build the FC 27 player catalogue from the source CSV."""
 import csv
-import gzip
 import json
 import sys
 from collections import Counter
@@ -9,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 
 source = Path(sys.argv[1] if len(sys.argv) > 1 else 'work/fc27-players.csv')
-out = Path(sys.argv[2] if len(sys.argv) > 2 else 'public/data/fc27-catalog.json.gz')
+out = Path(sys.argv[2] if len(sys.argv) > 2 else 'public/data/fc27-catalog.json')
 position_map = {
     'GK':'GR','RB':'DD','RWB':'DD','CB':'DC','LB':'DE','LWB':'DE','CDM':'MDC',
     'CM':'MC','CAM':'MCO','RM':'MD','LM':'ME','RW':'ED','LW':'EE','ST':'PL','CF':'PL',
@@ -66,6 +65,6 @@ source_info = {
 }
 package = {'schemaVersion':1,'edition':'FC 27','snapshot':'2026-09-12','source':source_info,'clubs':sorted(clubs.values(),key=lambda club:(club['league'].casefold(),club['name'].casefold())),'players':players,'managers':[]}
 out.parent.mkdir(parents=True,exist_ok=True)
-with gzip.open(out,'wt',encoding='utf-8',compresslevel=9) as handle:
+with out.open('w',encoding='utf-8') as handle:
     json.dump(package,handle,ensure_ascii=False,separators=(',',':'))
 print(f"{len(players):,} players; {len(clubs):,} club variants; {len({c['league'] for c in clubs.values()}):,} leagues; {out.stat().st_size:,} bytes")

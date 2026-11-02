@@ -6,9 +6,9 @@
 - Autor/publicador: **rovnez**
 - Fonte: [Kaggle dataset](https://www.kaggle.com/datasets/rovnez/fc-26-fifa-26-player-data)
 - Licença declarada pelo dataset: [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
-- Ficheiro adaptado: `public/data/fc26-catalog.json.gz`
+- Ficheiro adaptado: `public/data/fc26-catalog.json`
 - Conteúdo: 18 405 jogadores, 662 clubes e 42 ligas
-- Alterações: nomes e atributos colocados num catálogo comprimido, posições mapeadas para as posições da app, cores conceptuais derivadas/adaptadas, URLs de retratos excluídos.
+- Alterações: nomes e atributos colocados num catálogo JSON, posições mapeadas para as posições da app, cores conceptuais derivadas/adaptadas, URLs de retratos excluídos.
 - A descrição do dataset diz que a recolha de dados veio de páginas SoFIFA. O site e os retratos de SoFIFA não são incorporados.
 
 Atribuição curta para reutilização: **“FC 26 (FIFA 26) Player Data”, por rovnez, Kaggle, CC BY 4.0. Dados adaptados para MyCareer; retratos removidos. Origem descrita pelo autor: SoFIFA.**
@@ -16,13 +16,17 @@ Atribuição curta para reutilização: **“FC 26 (FIFA 26) Player Data”, por
 ## Base FC 27 incluída
 
 - Snapshot: **12 de setembro de 2026**
-- Conteúdo: **19 789 jogadores, 702 clubes e 63 ligas** (homens e mulheres)
-- Ficheiro processado: `public/data/fc27-catalog.json.gz`
+- Conteúdo: **19 789 jogadores, 702 clubes e 62 ligas** (homens e mulheres)
+- Ficheiro processado: `public/data/fc27-catalog.json`
 - Origem publicada: [EA_FC_ANALYSIS por Lakshmi Kanth](https://github.com/LakshmiKanth11/EA_FC_ANALYSIS), com `players.csv` descrito como recolhido da API pública de ratings da EA.
 - Atribuição: **“EA FC 27 Player Ratings Dataset”, por Lakshmi Kanth; snapshot de 2026-09-12, origem descrita como EA public ratings API. Adaptado para MyCareer; sem retratos ou emblemas.**
 - Alterações: posições e atributos mapeados para o modelo da app; idade calculada pela data de nascimento e snapshot; URLs de imagem excluídos.
 - Limitações do CSV de origem: não contém potencial, salários, contratos ou treinadores. Estes campos ficam vazios/estimados pelo modelo básico, e podem ser completados por importação local.
 - O repositório de origem não declara uma licença Creative Commons separada; os direitos de uso deste rascunho privado foram indicados pelo utilizador. Os dados e marcas de jogo são atribuídos aos respetivos titulares.
+
+## Treinadores incluídos e lista reutilizada
+
+A lista selecionável inclui 779 pares treinador/clube da página [FC 26 Managers, da FIFPlay](https://www.fifplay.com/fc-26-managers/), capturada em 2026-11-02. Os nomes e clubes são editáveis e servem como ponto de partida; a licença Creative Commons não é indicada pela página. Para FC 27, a lista FC 26 é reutilizada como base do ano anterior, pelo pedido do utilizador, e pode conter clubes ou treinadores desatualizados. Crédito explícito: **FIFPlay, “FC 26 Managers - List & Cards Guide”, https://www.fifplay.com/fc-26-managers/**. Não é apresentada como base CC.
 
 ## Catálogo FC 27 e treinadores
 

@@ -1,8 +1,8 @@
-import argparse, csv, gzip, json, colorsys, hashlib
+import argparse, csv, json, colorsys, hashlib
 from pathlib import Path
 parser=argparse.ArgumentParser(description='Convert the attributed Kaggle FC 26 CSV to the compact MyCareer catalog.')
 parser.add_argument('input', nargs='?', default='work/FC26_20250921.csv')
-parser.add_argument('--output', default='public/data/fc26-catalog.json.gz')
+parser.add_argument('--output', default='public/data/fc26-catalog.json')
 args=parser.parse_args()
 source=Path(args.input)
 out=Path(args.output)
@@ -46,5 +46,5 @@ players.sort(key=lambda p:(p['club'].casefold(), -p['overall'], p['name'].casefo
 clubs=sorted(club_map.values(),key=lambda c:(c['league'].casefold(),c['name'].casefold()))
 package={'schemaVersion':1,'edition':'FC 26','snapshot':'2025-09-19','source':{'title':'FC 26 (FIFA 26) Player Data','author':'rovnez','url':'https://www.kaggle.com/datasets/rovnez/fc-26-fifa-26-player-data','license':'CC BY 4.0','licenseUrl':'https://creativecommons.org/licenses/by/4.0/','derivedFrom':'SoFIFA public player pages; no portraits or image URLs included.'},'clubs':clubs,'players':players,'managers':[]}
 out.parent.mkdir(parents=True,exist_ok=True)
-with gzip.open(out,'wt',encoding='utf-8',compresslevel=9) as target: json.dump(package,target,ensure_ascii=False,separators=(',',':'))
+with out.open('w',encoding='utf-8') as target: json.dump(package,target,ensure_ascii=False,separators=(',',':'))
 print(f'{len(players)} players; {len(clubs)} clubs; {len({c["league"] for c in clubs})} leagues; {out.stat().st_size:,} bytes')

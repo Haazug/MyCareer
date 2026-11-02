@@ -180,13 +180,26 @@ export function mergeCatalogs(existing: CatalogPackage | undefined, incoming: Ca
 async function loadBundledCatalog(path: string, label: string): Promise<CatalogPackage> {
   const response = await fetch(path);
   if (!response.ok || !response.body) throw new Error(`Não foi possível carregar o catálogo ${label} incluído.`);
-  if (typeof DecompressionStream === 'undefined') throw new Error('Este navegador não consegue abrir o catálogo comprimido.');
-  const stream = response.body.pipeThrough(new DecompressionStream('gzip'));
-  const data = await new Response(stream).json() as Record<string, unknown>;
+  const data = await response.json() as Record<string, unknown>;
   return normalizeCatalog(data, label);
 }
-export const loadFc26Catalog = () => loadBundledCatalog('/data/fc26-catalog.json.gz', 'FC 26');
-export const loadFc27Catalog = () => loadBundledCatalog('/data/fc27-catalog.json.gz', 'FC 27');
+const legacyManagerSource: CatalogSource = {
+  title: 'FC 26 Managers directory (reused for FC 27)', author: 'FIFPlay',
+  url: 'https://www.fifplay.com/fc-26-managers/',
+  license: 'Atribuição; licença Creative Commons não declarada. Base anterior reutilizada para este rascunho pessoal.',
+  licenseUrl: 'https://www.fifplay.com/fc-26-managers/',
+};
+async function loadCatalogWithManagerFallback(path: string, edition: string): Promise<CatalogPackage> {
+  const [catalog, response] = await Promise.all([
+    loadBundledCatalog(path, edition), fetch('/data/fc26-managers.json'),
+  ]);
+  if (!response.ok) throw new Error('Não foi possível carregar a lista de treinadores reutilizada do FC 26.');
+  const data = await response.json() as { managers?: unknown[] };
+  const legacy = normalizeCatalog({ edition: 'FC 26', managers: data.managers ?? [] }, 'FC 26 managers');
+  return { ...catalog, managers: legacy.managers, sources: [...(catalog.sources ?? (catalog.source ? [catalog.source] : [])), legacyManagerSource] };
+}
+export const loadFc26Catalog = () => loadCatalogWithManagerFallback('/data/fc26-catalog.json', 'FC 26');
+export const loadFc27Catalog = () => loadCatalogWithManagerFallback('/data/fc27-catalog.json', 'FC 27');
 
 export async function importCatalogFile(file: File, credit: CatalogSource): Promise<CatalogPackage> {
   const content = await file.text();
