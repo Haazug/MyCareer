@@ -1,6 +1,6 @@
 # Estado da construção
 
-Atualizado em 2 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](https://github.com/Haazug/CAREERTRACKER), ramo `main`. Nenhuma publicação na Vercel foi feita.
+Atualizado em 2 de novembro de 2026. Repositório-alvo: [Haazug/MyCareer](https://github.com/Haazug/MyCareer), ramo `main`. A publicação depende da integração Git/Vercel configurada pelo operador.
 
 ## Versão funcional, sem publicação na Vercel
 
@@ -19,7 +19,7 @@ Atualizado em 2 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](h
 
 ## Fontes visuais e de dados
 
-Atualizado em 2 de novembro de 2026. O repositório agora inclui 18 405 registos de jogadores FC 26 e 662 clubes de um dataset Kaggle sob CC BY 4.0, com atribuição, URLs de retratos removidos e posições convertidas para as posições da app. Não é uma lista completa verificada de todos os clubes licenciados nem traz treinadores FC 26/27. O assistente aceita ficheiros locais CSV/JSON para dados FC 27 e treinadores, guardando créditos com a carreira.
+Atualizado em 2 de novembro de 2026. O repositório inclui os catálogos FC 26 (18 405 jogadores, 662 clubes) e FC 27 (19 789 jogadores, 702 clubes e 63 ligas). FC 26 vem do Kaggle sob CC BY 4.0; FC 27 vem de um snapshot público de 12/09/2026 atribuído a Lakshmi Kanth e à EA public ratings API, sem licença CC separada declarada na fonte. O snapshot FC 27 não inclui potencial, salários, contratos, retratos, emblemas nem treinadores; idade foi calculada pela data de nascimento. O assistente também aceita ficheiros CSV/JSON locais para completar dados de treinadores/clubes e outras edições, guardando créditos por carreira.
 
 Não existe uma biblioteca autenticada de camisolas oficiais, lettering ou faces FC 26/27. Os emblemas podem ser pesquisados no Wikimedia Commons, filtrados por CC0/CC BY, com autor e licença guardados na carreira. As texturas 3D, camisolas, troféu e brasões sem imagem são ilustrações conceptuais próprias; nenhuma imagem de kit ou face foi copiada do jogo. O calendário inclui OpenFootball (CC0) para dez competições masculinas; guarda datas, jornadas e adversários e descarta resultados reais. Kits DLS do football-logos.cc, Footy Headlines e Football Kit Archive servem apenas de referência manual.
 
@@ -32,7 +32,7 @@ Não existe uma biblioteca autenticada de camisolas oficiais, lettering ou faces
 
 ## O que ainda falta para chamar isto de completo
 
-1. Completar o catálogo por edição, temporada, género, clube e treinadores; FC 27 ainda depende de ficheiro fornecido localmente. Validar os direitos de todos os dados antes de qualquer reutilização fora do teste privado.
+1. Completar dados em falta no FC 27 (potencial, contratos, salários, treinadores) e validar os direitos dos recursos antes de qualquer reutilização fora do teste privado.
 2. Os kits e motivos atuais são conceptuais. Emblemas CC são escolhidos e creditados por carreira; kits, faces e lettering oficiais não estão incluídos.
 3. Recuperação de palavra-passe, eliminação de conta pela interface e política de retenção; a primeira versão já isola a leitura/escrita com RLS e evita misturar saves locais quando se troca de conta no mesmo navegador.
 4. IA: endpoint Vercel implementado para Groq e Cloudflare Workers AI, com roles separados, consentimento independente, fallback autorizado, limites e sem histórico persistido. Precisa de chaves de servidor; não está ativo sem configuração e ainda não foi avaliado com contas/modelos reais.

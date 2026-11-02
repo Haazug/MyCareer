@@ -9,3 +9,6 @@ playwright-report/
 test-results/
 # Internal candidate audit exports are not licensed production data.
 audit/registers/
+
+# Scratch source datasets and converter inputs
+work/

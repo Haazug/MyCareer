@@ -13,11 +13,22 @@
 
 Atribuição curta para reutilização: **“FC 26 (FIFA 26) Player Data”, por rovnez, Kaggle, CC BY 4.0. Dados adaptados para MyCareer; retratos removidos. Origem descrita pelo autor: SoFIFA.**
 
+## Base FC 27 incluída
+
+- Snapshot: **12 de setembro de 2026**
+- Conteúdo: **19 789 jogadores, 702 clubes e 63 ligas** (homens e mulheres)
+- Ficheiro processado: `public/data/fc27-catalog.json.gz`
+- Origem publicada: [EA_FC_ANALYSIS por Lakshmi Kanth](https://github.com/LakshmiKanth11/EA_FC_ANALYSIS), com `players.csv` descrito como recolhido da API pública de ratings da EA.
+- Atribuição: **“EA FC 27 Player Ratings Dataset”, por Lakshmi Kanth; snapshot de 2026-09-12, origem descrita como EA public ratings API. Adaptado para MyCareer; sem retratos ou emblemas.**
+- Alterações: posições e atributos mapeados para o modelo da app; idade calculada pela data de nascimento e snapshot; URLs de imagem excluídos.
+- Limitações do CSV de origem: não contém potencial, salários, contratos ou treinadores. Estes campos ficam vazios/estimados pelo modelo básico, e podem ser completados por importação local.
+- O repositório de origem não declara uma licença Creative Commons separada; os direitos de uso deste rascunho privado foram indicados pelo utilizador. Os dados e marcas de jogo são atribuídos aos respetivos titulares.
+
 ## Catálogo FC 27 e treinadores
 
 O MyCareer aceita JSON ou CSV fornecido localmente pelo utilizador no assistente de carreira. Se a carreira usa dados do [FC Tools Hub](https://fctoolshub.com/pt/database/fc27/players), preenche os campos de autor, link e autorização no importador. A aplicação guarda essa atribuição com a carreira e mostra-a em **Créditos & dados**. Há páginas de [jogadores FC 27](https://fctoolshub.com/pt/database/fc27/players), [treinadores FC 27](https://fctoolshub.com/pt/database/fc27/managers) e [treinadores FC 26](https://fctoolshub.com/pt/database/fc26/managers).
 
-A edição FC 27 pode ser adicionada pelo importador local em JSON (incluindo respostas paginadas em formato Inertia) ou CSV; a aplicação suporta jogadores, equipas, treinadores e atributos aninhados no formato do FC Tools Hub. Nenhum dado FC 27 do FC Tools Hub está embutido no repositório e a app não recolhe dados dessas páginas automaticamente. A publicação do FC Tools Hub diz que a base reproduz conteúdos de ficheiros de elenco do jogo. O importador mantém a origem explícita para cada carreira. A página consultada descreve a base como dados extraídos do ficheiro de elenco e não declara uma licença Creative Commons para redistribuir o catálogo; por isso o catálogo FC 27 só é incorporado quando o utilizador fornece um ficheiro e indica a autorização aplicável.
+A edição FC 27 pode ser adicionada pelo importador local em JSON (incluindo respostas paginadas em formato Inertia) ou CSV; a aplicação suporta jogadores, equipas, treinadores e atributos aninhados no formato do FC Tools Hub. A base incluída é um snapshot de uma fonte distinta do FC Tools Hub. Nenhum dump do FC Tools Hub está embutido e a app não recolhe essas páginas automaticamente. A publicação do Hub descreve a sua base como dados extraídos de ficheiros de elenco do jogo e não declara uma licença Creative Commons para redistribuição. O importador guarda a autorização/licença indicada pelo utilizador em cada carreira.
 
 ## Emblemas
 

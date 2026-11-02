@@ -7,7 +7,7 @@ export type CatalogPlayer = Omit<Player, 'id'> & {
   club: string;
   league: string;
   gender?: Gender;
-  potential: number;
+  potential?: number;
   value: number;
   positions: string[];
   preferredFoot?: string;
@@ -35,7 +35,7 @@ const positionMap: Record<string, string> = {
   CF: 'PL', RF: 'ED', LF: 'EE', GR: 'GR', DD: 'DD', DC: 'DC', DE: 'DE',
   MD: 'MD', ME: 'ME', ED: 'ED', EE: 'EE', PL: 'PL',
 };
-const femaleLeagueTerms = ['women', 'frau', 'feminin', 'liga f', 'arkema', 'nwsl', 'a-league women'];
+const femaleLeagueTerms = ['women', 'woman', 'frau', 'feminin', 'liga f', 'arkema', 'nwsl', 'a-league women'];
 
 function text(value: unknown, fallback = ''): string {
   if (typeof value === 'string' || typeof value === 'number') return String(value).trim();
@@ -53,14 +53,14 @@ function pick(row: Record<string, unknown>, names: string[]): unknown {
   return undefined;
 }
 function normalizePosition(value: unknown): string[] {
-  const list = Array.isArray(value) ? value : text(value).split(/[,;/|]/);
+  const list = Array.isArray(value) ? value : text(value).split(/[,;/|\s]+/);
   const normalized = list.map((item) => positionMap[text(item).trim().toUpperCase()]).filter(Boolean);
   return normalized.length ? [...new Set(normalized)] : ['MC'];
 }
 function normalizeGender(league: string, value: unknown): Gender {
   const raw = text(value).toLowerCase();
-  if (raw === 'female' || raw === 'women' || raw === 'feminino') return 'female';
-  if (raw === 'male' || raw === 'men' || raw === 'masculino') return 'male';
+  if (raw === 'female' || raw === 'women' || raw === "women's football" || raw === 'feminino') return 'female';
+  if (raw === 'male' || raw === 'men' || raw === "men's football" || raw === 'masculino') return 'male';
   return femaleLeagueTerms.some((term) => league.toLowerCase().includes(term)) ? 'female' : 'male';
 }
 function defaultColor(name: string): string {
@@ -104,7 +104,10 @@ function normalizeCatalog(input: Record<string, unknown>, filename: string): Cat
     const mainPosition = nested(row.main_position);
     const rawPositions = Array.isArray(row.positions) ? row.positions.map((entry) => { const item = nested(entry); return text(pick(item, ['name', 'clean_name'])); }) : pick(row, ['player_positions', 'position', 'playerPosition']);
     const positions = normalizePosition(rawPositions ?? pick(mainPosition, ['name', 'clean_name']));
-    const age = Math.max(14, Math.min(99, number(pick(row, ['age']), 18)));
+    const birthDate = text(pick(row, ['birthdate', 'date_of_birth', 'dob']));
+    const snapshotDate = text(pick(row, ['snapshot_date', 'snapshotDate']));
+    const derivedAge = (() => { const parseDate = (value: string) => { const parts = value.split('-').map(Number); if (parts.length !== 3 || parts.some(Number.isNaN)) return null; return parts[0] > 31 ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date(parts[2], parts[1] - 1, parts[0]); }; const birth = parseDate(birthDate); const snapshot = parseDate(snapshotDate) ?? new Date(); if (!birth || Number.isNaN(birth.getTime())) return 18; let years = snapshot.getFullYear() - birth.getFullYear(); if (snapshot.getMonth() < birth.getMonth() || snapshot.getMonth() === birth.getMonth() && snapshot.getDate() < birth.getDate()) years--; return years; })();
+    const age = Math.max(14, Math.min(99, number(pick(row, ['age']), derivedAge)));
     const rawContract = text(typeof row.contract === 'string' ? row.contract : pick(contractData, ['end_date']));
     const contractYear = number(pick(row, ['contract_year', 'club_contract_valid_until_year']) ?? pick(contractData, ['end_date']), 2027);
     const contract = /^\d{4}-\d\d-\d\d$/.test(rawContract) ? rawContract : `${Math.max(2025, Math.min(2100, contractYear))}-06-30`;
@@ -112,8 +115,8 @@ function normalizeCatalog(input: Record<string, unknown>, filename: string): Cat
       sourceId: text(pick(row, ['player_id', 'sourceId', 'id'])), name,
       shortName: text(pick(row, ['short_name', 'shortName'])), club, league,
       gender: normalizeGender(league, pick(row, ['gender', 'team_gender'])), positions,
-      position: positions[0], overall: Math.max(1, Math.min(99, number(pick(row, ['overall', 'ovr', 'rating']) ?? stats.overall, 60))),
-      potential: Math.max(1, Math.min(99, number(pick(row, ['potential', 'pot']) ?? stats.potential, number(pick(row, ['overall', 'ovr']) ?? stats.overall, 60)))),
+      position: positions[0], overall: Math.max(1, Math.min(99, number(pick(row, ['overall', 'overall_rating', 'ovr', 'rating']) ?? stats.overall, 60))),
+      ...(pick(row, ['potential', 'pot']) !== undefined || stats.potential !== undefined ? { potential: Math.max(1, Math.min(99, number(pick(row, ['potential', 'pot']) ?? stats.potential, 60))) } : {}),
       age, nation: text(pick(row, ['nation', 'nationality_name', 'nationality', 'country'])),
       number: Math.max(0, Math.min(99, number(pick(row, ['number', 'club_jersey_number', 'shirt_number'])))),
       salary: Math.max(0, number(pick(row, ['salary', 'wage_eur', 'wage']) ?? pick(contractData, ['wage_eur']))),
@@ -174,14 +177,16 @@ export function mergeCatalogs(existing: CatalogPackage | undefined, incoming: Ca
   };
 }
 
-export async function loadFc26Catalog(): Promise<CatalogPackage> {
-  const response = await fetch('/data/fc26-catalog.json.gz');
-  if (!response.ok || !response.body) throw new Error('Não foi possível carregar o catálogo FC 26 incluído.');
+async function loadBundledCatalog(path: string, label: string): Promise<CatalogPackage> {
+  const response = await fetch(path);
+  if (!response.ok || !response.body) throw new Error(`Não foi possível carregar o catálogo ${label} incluído.`);
   if (typeof DecompressionStream === 'undefined') throw new Error('Este navegador não consegue abrir o catálogo comprimido.');
   const stream = response.body.pipeThrough(new DecompressionStream('gzip'));
   const data = await new Response(stream).json() as Record<string, unknown>;
-  return normalizeCatalog(data, 'FC 26');
+  return normalizeCatalog(data, label);
 }
+export const loadFc26Catalog = () => loadBundledCatalog('/data/fc26-catalog.json.gz', 'FC 26');
+export const loadFc27Catalog = () => loadBundledCatalog('/data/fc27-catalog.json.gz', 'FC 27');
 
 export async function importCatalogFile(file: File, credit: CatalogSource): Promise<CatalogPackage> {
   const content = await file.text();
@@ -203,8 +208,8 @@ export function careerPlayersFromCatalog(catalog: CatalogPackage | null, clubNam
   const players = catalog.players.filter((player) => player.club === clubName)
     .sort((a, b) => (order[a.position] - order[b.position]) || b.overall - a.overall || a.name.localeCompare(b.name))
     .slice(0, 36);
-  return players.map((player) => ({
-    id: crypto.randomUUID(), name: player.name, number: player.number || 1, position: player.position,
+  return players.map((player, index) => ({
+    id: crypto.randomUUID(), name: player.name, number: player.number || (index % 99) + 1, position: player.position,
     overall: player.overall, age: player.age, nation: player.nation || '—', salary: player.salary,
     contract: player.contract, potential: player.potential, marketValue: player.value,
     ...(player.attributes ? { attributes: player.attributes } : {}),
