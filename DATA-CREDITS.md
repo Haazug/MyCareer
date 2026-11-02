@@ -26,7 +26,7 @@ Atribuição curta para reutilização: **“FC 26 (FIFA 26) Player Data”, por
 
 ## Treinadores incluídos e lista reutilizada
 
-A lista selecionável inclui 779 pares treinador/clube da página [FC 26 Managers, da FIFPlay](https://www.fifplay.com/fc-26-managers/), capturada em 2026-11-02. Os nomes e clubes são editáveis e servem como ponto de partida; a licença Creative Commons não é indicada pela página. Para FC 27, a lista FC 26 é reutilizada como base do ano anterior, pelo pedido do utilizador, e pode conter clubes ou treinadores desatualizados. Crédito explícito: **FIFPlay, “FC 26 Managers - List & Cards Guide”, https://www.fifplay.com/fc-26-managers/**. Não é apresentada como base CC.
+A lista selecionável inclui 779 pares treinador/clube da página [FC 26 Managers, da FIFPlay](https://www.fifplay.com/fc-26-managers/), capturada em 2026-11-02. O assistente permite pesquisar nome/clube e filtrar nacionalidade e categoria masculina/feminina da equipa. O campo de categoria foi inferido pelos blocos de equipas no diretório (692 masculinas, 87 femininas); não afirma o género pessoal do treinador. Os nomes e clubes são editáveis e servem como ponto de partida; a licença Creative Commons não é indicada pela página. Para FC 27, a lista FC 26 é reutilizada como base do ano anterior, pelo pedido do utilizador, e pode conter clubes ou treinadores desatualizados. Crédito explícito: **FIFPlay, “FC 26 Managers - List & Cards Guide”, https://www.fifplay.com/fc-26-managers/**. Não é apresentada como base CC.
 
 ## Catálogo FC 27 e treinadores
 

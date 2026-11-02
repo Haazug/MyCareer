@@ -17,7 +17,7 @@ export type CatalogPlayer = Omit<Player, 'id'> & {
   weightKg?: number;
   attributes?: Record<string, number>;
 };
-export type CatalogManager = { name: string; club: string; nationality?: string };
+export type CatalogManager = { name: string; club: string; nationality?: string; gender?: Gender };
 export type CatalogSource = { title: string; author: string; url: string; license: string; licenseUrl: string };
 export type CatalogPackage = {
   schemaVersion: number;
@@ -144,7 +144,7 @@ function normalizeCatalog(input: Record<string, unknown>, filename: string): Cat
   const managerRows = Array.isArray(input.managers) ? input.managers : Array.isArray(managerContainer?.data) ? managerContainer.data : Array.isArray(props?.managers) ? props.managers : Array.isArray(propsManagers?.data) ? propsManagers.data : []; 
   const managers = managerRows.map((entry) => {
     const row = (entry ?? {}) as Record<string, unknown>;
-    return { name: text(pick(row, ['name', 'manager', 'manager_name', 'full_name'])), club: text(pick(row, ['club', 'club_name', 'clubName', 'team'])), nationality: text(pick(row, ['nationality', 'nation', 'country'])) };
+    return { name: text(pick(row, ['name', 'manager', 'manager_name', 'full_name'])), club: text(pick(row, ['club', 'club_name', 'clubName', 'team'])), nationality: text(pick(row, ['nationality', 'nation', 'country'])), gender: normalizeGender('', pick(row, ['gender', 'team_gender', 'teamGender'])) };
   }).filter((manager) => manager.name);
   const sourceInput = input.source && typeof input.source === 'object' ? input.source as Record<string, unknown> : undefined;
   const source = sourceInput ? {

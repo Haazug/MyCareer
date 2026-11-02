@@ -17,6 +17,10 @@ Atualizado em 2 de novembro de 2026. Repositório-alvo: [Haazug/MyCareer](https:
 - Login email/palavra-passe e sincronização Supabase estão implementados com sessão local, sincronização automática/manual, schema SQL e RLS por utilizador. A configuração e os passos copiáveis estão em [SUPABASE-SETUP.md](SUPABASE-SETUP.md). Nenhuma chave/projeto real foi fornecida ou configurada; falta testar a integração contra o projeto Supabase do operador. A recuperação de palavra-passe e a eliminação de conta pela interface ainda não existem.
 - O registo [SOURCES-AND-RIGHTS.md](SOURCES-AND-RIGHTS.md) compara as bases/API e documenta licenças, limites, fallbacks e estado de cada integração; termos de TheSportsDB e encerramento da FKAPI foram revistos em novembro de 2026; o detalhe de equipamentos e lettering continua na [auditoria](audit/README.md).
 
+- Os treinadores existentes podem ser pesquisados por nome/clube e filtrados por nacionalidade e categoria de equipa masculina/feminina. A classificação reaproveitada da FIFPlay é por equipa e não identifica o género pessoal do treinador.
+- O balneário 3D mantém as camisolas visíveis em todos os modos, usa as cores e símbolos conceptuais de cada clube, mostra o emblema escolhido na parede e nas camisolas, e permite saltar entre cabines. Cada ficha aceita fotografia local/licenciada; os catálogos não incluem retratos.
+- Um aviso introdutório do conselheiro aparece uma vez por perfil de carreira: auxiliar técnico em carreira de treinador e empresário em carreira de jogador. O envio para IA continua dependente de consentimento e das chaves do servidor.
+
 ## Fontes visuais e de dados
 
 Atualizado em 2 de novembro de 2026. O repositório inclui os catálogos FC 26 (18 405 jogadores, 662 clubes) e FC 27 (19 789 jogadores, 702 clubes e 62 ligas). FC 26 vem do Kaggle sob CC BY 4.0; FC 27 vem de um snapshot público de 12/09/2026 atribuído a Lakshmi Kanth e à EA public ratings API, sem licença CC separada declarada na fonte. O snapshot FC 27 não inclui potencial, salários, contratos, retratos, emblemas nem treinadores; idade foi calculada pela data de nascimento. O assistente também aceita ficheiros CSV/JSON locais para completar dados de treinadores/clubes e outras edições, guardando créditos por carreira.
@@ -26,7 +30,7 @@ Não existe uma biblioteca autenticada de camisolas oficiais, lettering ou faces
 ## Verificação
 
 - `npm test`: testes de migração, épocas/traduções/limites, prestações, empréstimos, banco ordenado, transfer ban, paleta/letreiro de teto e saldo futuro passam.
-- `npm run build`: TypeScript e Vite passam.
+- `npm run build`: TypeScript e Vite passam após as atualizações de pesquisa, balneário 3D, retratos locais e conselheiro introdutório.
 - Verificado no browser: catálogos FC 26/27 carregam, com 779 treinadores selecionáveis como base reaproveitada do FC 26. O cronómetro permite iniciar, pausar no intervalo e terminar; os controlos adaptam-se a ecrãs móveis e tablet.
 - O build separa o balneário 3D do carregamento inicial. O chunk de Three.js continua com cerca de 532 KB minificados (133 KB gzip); a compilação sinaliza-o para otimização posterior. O módulo do balneário tem 15,3 KB (5,8 KB gzip).
 - O layout do assistente e do formulário de jogo foi verificado a 390 px (telemóvel) e 820 px (tablet), sem overflow horizontal. Movimento/FPS, colisões e qualidade do balneário 3D continuam a precisar de ensaio em dispositivos reais.
