@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { DEFAULT_LOCKER_STYLE, type LockerStyle, type Player } from './model';
+import { clubKitDesign } from './kitDesign';
 
 type Props={players:Player[];club:string;color:string;onSelect:(id:string)=>void;style:LockerStyle;onStyleChange:(style:LockerStyle)=>void;playerOfMatch?:string;hatTrick?:string;hasRecentMatch:boolean};
 type Direction='forward'|'back'|'left'|'right'|'turnLeft'|'turnRight';
@@ -16,14 +17,24 @@ function labelTexture(title:string,subtitle:string){
 function ceilingTexture(style:LockerStyle){
  const canvas=document.createElement('canvas');canvas.width=1280;canvas.height=480;const ctx=canvas.getContext('2d')!;ctx.fillStyle=style.ceilingColor;ctx.fillRect(0,0,1280,480);ctx.strokeStyle=style.accentColor;ctx.lineWidth=3;ctx.beginPath();ctx.arc(640,164,106,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.arc(640,164,91,0,Math.PI*2);ctx.stroke();ctx.textAlign='center';ctx.fillStyle=style.accentColor;ctx.font='700 82px Georgia,serif';ctx.fillText(style.symbol.toUpperCase().slice(0,14),640,191);ctx.font='500 29px Georgia,serif';ctx.letterSpacing='4px';ctx.fillText(style.motto.toUpperCase().slice(0,48),640,355);const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;return texture;
 }
-function jerseyTexture(_player:Player,color:string){
+function jerseyTexture(_player:Player,color:string,club:string){
+ const design=clubKitDesign(club,color);
  const canvas=document.createElement('canvas');canvas.width=512;canvas.height=640;
  const ctx=canvas.getContext('2d')!;
- const grad=ctx.createLinearGradient(0,0,512,0);grad.addColorStop(0,'#22272a');grad.addColorStop(.22,color);grad.addColorStop(.52,color);grad.addColorStop(.8,color);grad.addColorStop(1,'#22272a');
- ctx.fillStyle=grad;ctx.beginPath();ctx.moveTo(174,45);ctx.lineTo(220,25);ctx.quadraticCurveTo(256,43,292,25);ctx.lineTo(338,45);ctx.lineTo(455,130);ctx.lineTo(408,208);ctx.lineTo(357,178);ctx.lineTo(374,596);ctx.quadraticCurveTo(256,620,138,596);ctx.lineTo(155,178);ctx.lineTo(104,208);ctx.lineTo(57,130);ctx.closePath();ctx.fill();
+ const grad=ctx.createLinearGradient(0,0,512,0);grad.addColorStop(0,'#22272a');grad.addColorStop(.22,design.primary);grad.addColorStop(.52,design.primary);grad.addColorStop(.8,design.primary);grad.addColorStop(1,'#22272a');
+ ctx.beginPath();ctx.moveTo(174,45);ctx.lineTo(220,25);ctx.quadraticCurveTo(256,43,292,25);ctx.lineTo(338,45);ctx.lineTo(455,130);ctx.lineTo(408,208);ctx.lineTo(357,178);ctx.lineTo(374,596);ctx.quadraticCurveTo(256,620,138,596);ctx.lineTo(155,178);ctx.lineTo(104,208);ctx.lineTo(57,130);ctx.closePath();ctx.save();ctx.clip();ctx.fillStyle=grad;ctx.fillRect(0,0,512,640);
+ ctx.fillStyle=design.secondary;
+ if(design.pattern==='vertical'){for(const x of [116,184,292,360])ctx.fillRect(x,20,28,610);}
+ else if(design.pattern==='hoops'){for(const y of [205,320,440])ctx.fillRect(36,y,440,42);}
+ else if(design.pattern==='sash'){ctx.beginPath();ctx.moveTo(80,76);ctx.lineTo(120,44);ctx.lineTo(458,574);ctx.lineTo(415,603);ctx.closePath();ctx.fill();}
+ else if(design.pattern==='quarters'){ctx.fillRect(32,42,220,270);ctx.fillRect(254,312,220,300);}
+ else if(design.pattern==='pinstripe'){for(const x of [148,176,336,364])ctx.fillRect(x,24,7,605);}
+ else {ctx.fillRect(74,275,32,325);ctx.fillRect(406,275,32,325);}
+ ctx.restore();
  ctx.strokeStyle='#ffffff22';ctx.lineWidth=5;ctx.stroke();
- ctx.fillStyle='#ded7c7';ctx.beginPath();ctx.arc(256,50,34,0,Math.PI);ctx.lineWidth=11;ctx.strokeStyle='#e2ddcf';ctx.stroke();
- ctx.fillStyle='#f1ebdc';ctx.beginPath();ctx.moveTo(338,196);ctx.lineTo(370,208);ctx.lineTo(364,246);ctx.quadraticCurveTo(338,263,312,246);ctx.lineTo(306,208);ctx.closePath();ctx.fill();
+ ctx.fillStyle='#ded7c7';ctx.beginPath();ctx.arc(256,50,34,0,Math.PI);ctx.lineWidth=11;ctx.strokeStyle=design.secondary;ctx.stroke();
+ ctx.fillStyle=design.secondary;ctx.beginPath();ctx.moveTo(338,196);ctx.lineTo(370,208);ctx.lineTo(364,246);ctx.quadraticCurveTo(338,263,312,246);ctx.lineTo(306,208);ctx.closePath();ctx.fill();
+ ctx.fillStyle='#17201a';ctx.beginPath();ctx.arc(354,223,17,0,Math.PI*2);ctx.fill();ctx.fillStyle=design.secondary;ctx.font='24px "Apple Color Emoji","Segoe UI Emoji",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(design.symbol,354,224);
  ctx.strokeStyle='#8b7a5a';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(256,272);ctx.lineTo(256,554);ctx.stroke();ctx.beginPath();ctx.moveTo(180,272);ctx.lineTo(332,272);ctx.stroke();
  const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=8;return texture;
 }
@@ -65,7 +76,7 @@ export function Locker3D({players,club,color,onSelect,style=DEFAULT_LOCKER_STYLE
    const hook=new THREE.Mesh(new THREE.TorusGeometry(.105,.018,6,16,Math.PI*1.6),brass);hook.position.set(0,2.73,.02);hook.rotation.x=Math.PI/2;cabin.add(hook);
    const rail=new THREE.Mesh(new THREE.BoxGeometry(.78,.055,.055),brass);rail.position.set(0,2.6,.12);cabin.add(rail);
    const hanger=new THREE.Mesh(new THREE.TorusGeometry(.105,.015,6,16,Math.PI*1.65),brass);hanger.position.set(0,2.51,.12);hanger.rotation.x=Math.PI/2;cabin.add(hanger);
-   if(day!=='rest'){const jerseyGeo=new THREE.PlaneGeometry(1.15,1.43,1,1);const jerseyMat=new THREE.MeshStandardMaterial({map:jerseyTexture(p,color),roughness:.56,metalness:.015,side:THREE.FrontSide,transparent:true,alphaTest:.015});const shirtRig=new THREE.Group();shirtRig.position.set(0,1.73,.135);cabin.add(shirtRig);hangingKits.push({group:shirtRig,velocity:0});const shirt=new THREE.Mesh(jerseyGeo,jerseyMat);shirt.castShadow=true;shirtRig.add(shirt);const trim=new THREE.Mesh(new THREE.BoxGeometry(.83,.27,.08),new THREE.MeshStandardMaterial({color:style.accentColor,roughness:.58}));trim.position.set(0,2.49,.09);cabin.add(trim);}
+   if(day!=='rest'){const jerseyGeo=new THREE.PlaneGeometry(1.15,1.43,1,1);const jerseyMat=new THREE.MeshStandardMaterial({map:jerseyTexture(p,color,club),roughness:.56,metalness:.015,side:THREE.FrontSide,transparent:true,alphaTest:.015});const shirtRig=new THREE.Group();shirtRig.position.set(0,1.73,.135);cabin.add(shirtRig);hangingKits.push({group:shirtRig,velocity:0});const shirt=new THREE.Mesh(jerseyGeo,jerseyMat);shirt.castShadow=true;shirtRig.add(shirt);const trim=new THREE.Mesh(new THREE.BoxGeometry(.83,.27,.08),new THREE.MeshStandardMaterial({color:clubKitDesign(club,color).secondary,roughness:.58}));trim.position.set(0,2.49,.09);cabin.add(trim);}
    const plate=new THREE.Mesh(new THREE.PlaneGeometry(1.23,.33),new THREE.MeshStandardMaterial({map:labelTexture(p.name,`${String(p.number).padStart(2,'0')}  ·  ${p.position}  ·  ${p.overall} OVR`),roughness:.7,side:THREE.DoubleSide}));plate.position.set(0,3.03,.02);cabin.add(plate);
    const clicker=new THREE.Mesh(new THREE.PlaneGeometry(1.34,2.65),new THREE.MeshBasicMaterial({transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));clicker.position.set(0,1.57,.2);clicker.userData.playerId=p.id;cabin.add(clicker);pickTargets.push(clicker);playerObject.set(clicker,p.id);
   });

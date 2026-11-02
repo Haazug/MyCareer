@@ -1,6 +1,6 @@
 export type Mode = 'manager' | 'player';
 export type Gender = 'male' | 'female';
-export type Player = { id: string; name: string; number: number; position: string; overall: number; age: number; nation: string; salary: number; contract: string; active?: boolean; loanedFrom?: string; loanedTo?: string; loanUntil?: string };
+export type Player = { id: string; name: string; number: number; position: string; overall: number; age: number; nation: string; salary: number; contract: string; potential?: number; marketValue?: number; attributes?: Record<string, number>; active?: boolean; loanedFrom?: string; loanedTo?: string; loanUntil?: string };
 export type Performance = { playerId: string; goals: number; assists: number; minutes: number; rating: number };
 export type Match = { id: string; opponent: string; date: string; competition: string; venue: 'home' | 'away'; status: 'scheduled' | 'played'; goalsFor: number; goalsAgainst: number; performances: Performance[]; notes: string; season?: string };
 export type Transaction = { id: string; label: string; amount: number; date: string; category: string; status?: 'paid'|'scheduled' };
@@ -16,10 +16,12 @@ export type CareerGoal = { id: string; title: string; kind: 'personal'|'club-tar
 export type PlayerInjury = { id: string; name: string; startDate: string; returnDate: string; matchesMissed: number; status: string };
 export type PlayerCareerRecord = { yellowCards: number; redCards: number; matchesMissed: number; coachConfidence: number; injuries: PlayerInjury[] };
 export type MuseumItem = { id: string; kind: 'shirt'|'scarf'|'ball'|'award'|'phrase'; title: string; club: string; season: string; number: number; color: string; detail: string; match: string };
+export type CatalogCredit = { title: string; author: string; url: string; license: string; licenseUrl: string };
+export type AssetCredit = { author: string; sourceUrl: string; fileUrl: string; license: string; licenseUrl: string };
 export type LockerStyle = { wallColor:string; accentColor:string; ceilingColor:string; lightColor:string; lighting:number; symbol:string; motto:string };
 export const DEFAULT_LOCKER_STYLE:LockerStyle={wallColor:'#242424',accentColor:'#c8bda9',ceilingColor:'#e6e1d7',lightColor:'#fff0d2',lighting:68,symbol:'MC',motto:'A TUA HISTÓRIA COMEÇA AQUI'};
 export type CareerChallenge = { title: string; description: string; duration: 'short'|'long'; transferBan: boolean };
-export type Career = { id: string; name: string; mode: Mode; gender: Gender; game: string; season: string; challenge?: CareerChallenge; seasons?: SeasonArchive[]; squadPlans?: SquadPlan[]; bench?:string[]; lockerStyle?:LockerStyle; scouting?: ScoutReport[]; academy?: AcademyProspect[]; goals?: CareerGoal[]; playerRecord?: PlayerCareerRecord; playerMuseum?: MuseumItem[]; crestDataUrl?: string; person: string; club: string; color: string; created: boolean; playerId: string; players: Player[]; matches: Match[]; transactions: Transaction[]; transfers: Transfer[]; trophies: Trophy[]; notes: Note[]; formation: string; lineup: string[]; budget: number; demo: boolean };
+export type Career = { id: string; name: string; mode: Mode; gender: Gender; game: string; season: string; challenge?: CareerChallenge; seasons?: SeasonArchive[]; squadPlans?: SquadPlan[]; bench?:string[]; lockerStyle?:LockerStyle; scouting?: ScoutReport[]; academy?:AcademyProspect[]; goals?:CareerGoal[]; playerRecord?:PlayerCareerRecord; playerMuseum?:MuseumItem[]; crestDataUrl?:string; crestAttribution?:AssetCredit; catalogCredit?:CatalogCredit; catalogCredits?:CatalogCredit[]; person:string; club:string; color:string; created:boolean; playerId:string; players:Player[]; matches:Match[]; transactions:Transaction[]; transfers:Transfer[]; trophies:Trophy[]; notes:Note[]; formation:string; lineup:string[]; budget:number; demo:boolean };
 export type Store = { version: 1; activeId: string; careers: Career[] };
 export const STORAGE_KEY = 'touchline-career-v1';
 export const uid = () => crypto.randomUUID();
@@ -54,15 +56,17 @@ export function seedPlayers(gender: Gender, club: string): Player[] {
   const numbers = [1,26,30,44,17,8,61,18,7,14,21,24,4,85,27,25,39,84];
   return (club === 'SL Benfica' ? gender === 'male' ? male : female : slots.map((_, i) => `${gender === 'male' ? 'Jogador' : 'Jogadora'} ${i + 1}`)).map((name,i) => ({ id: uid(), name, position: slots[i], number: numbers[i], overall: 75 + (i % 9), age: 21 + (i % 13), nation: 'Portugal', salary: 0, contract: '2027-06-30' }));
 }
-export function createCareer(input: Pick<Career, 'name'|'mode'|'gender'|'game'|'season'|'person'|'club'|'color'|'created'> & { position?: string; number?: number; challenge?:CareerChallenge }): Career {
-  const players = seedPlayers(input.gender, input.club);
+export function createCareer(input: Pick<Career, 'name'|'mode'|'gender'|'game'|'season'|'person'|'club'|'color'|'created'> & { position?: string; number?: number; challenge?:CareerChallenge; initialPlayers?:Player[]; catalogCredit?:CatalogCredit; catalogCredits?:CatalogCredit[]; crestDataUrl?:string; crestAttribution?:AssetCredit }): Career {
+  const { initialPlayers, ...careerInput } = input;
+  const players = initialPlayers?.length ? initialPlayers : seedPlayers(input.gender, input.club);
   let playerId = '';
   if (input.mode === 'player') {
     const existing = !input.created && players.find(p => p.name === input.person);
     if (existing) playerId = existing.id;
     else { const player = { id: uid(), name: input.person, number: input.number ?? 10, position: input.position ?? 'MC', overall: 70, age: 18, nation: 'Portugal', salary: 0, contract: '2027-06-30' }; players.push(player); playerId = player.id; }
   }
-  return { ...input, id: uid(), playerId, players, matches: [], seasons: [], squadPlans: [], bench:players.slice(11).map(p=>p.id), lockerStyle:{...DEFAULT_LOCKER_STYLE}, scouting: [], academy: [], goals: [], playerMuseum: [], ...(input.mode==='player'?{playerRecord:{yellowCards:0,redCards:0,matchesMissed:0,coachConfidence:50,injuries:[]}}:{}), transactions: [], transfers: [], trophies: [], notes: [], formation: '4-3-3', lineup: players.slice(0,11).map(p => p.id), budget: 0, demo: false };
+  const { catalogCredit, catalogCredits, ...remainingInput } = careerInput;
+  return { ...remainingInput, ...(catalogCredit?{catalogCredit}:{}), ...(catalogCredits?.length?{catalogCredits}:{}), id: uid(), playerId, players, matches: [], seasons: [], squadPlans: [], bench:players.slice(11).map(p=>p.id), lockerStyle:{...DEFAULT_LOCKER_STYLE}, scouting: [], academy: [], goals: [], playerMuseum: [], ...(input.mode==='player'?{playerRecord:{yellowCards:0,redCards:0,matchesMissed:0,coachConfidence:50,injuries:[]}}:{}), transactions: [], transfers: [], trophies: [], notes: [], formation: '4-3-3', lineup: players.slice(0,11).map(p => p.id), budget: 0, demo: false };
 }
 export function demoCareer(): Career {
   const c = createCareer({ name:'Uma nova era',mode:'manager',gender:'male',game:'FC 26',season:'2025/26',person:'O meu treinador',club:'SL Benfica',color:'#df302e',created:true });
@@ -101,7 +105,10 @@ export function parseStore(raw: string): Store {
   for(const c of data.careers) {
     if(!c || !['id','name','game','season','person','club','playerId'].every(k=>string(c[k as keyof Career])) || !/^#[\da-f]{6}$/i.test(c.color) || !['player','manager'].includes(c.mode) || !['male','female'].includes(c.gender) || typeof c.created!=='boolean' || typeof c.demo!=='boolean' || !finite(c.budget) || !formations[c.formation] || !Array.isArray(c.lineup) || c.lineup.length!==11 || !c.lineup.every(string) || ids.has(c.id)) throw new Error('A carreira contém dados inválidos.');
     ids.add(c.id);
-    if(!Array.isArray(c.players) || c.players.length>1000 || !c.players.every(p=>p && ['id','name','position','nation'].every(k=>string(p[k as keyof Player])) && (p.loanUntil===undefined||date(p.loanUntil)) && (p.loanedFrom===undefined||string(p.loanedFrom)) && (p.loanedTo===undefined||string(p.loanedTo)) && positions.includes(p.position) && finite(p.number,1,99) && Number.isInteger(p.number) && finite(p.overall,1,99) && finite(p.age,14,99) && finite(p.salary) && date(p.contract))) throw new Error('Plantel inválido.');
+    if(c.catalogCredit!==undefined&&(!c.catalogCredit||!['title','author','url','license','licenseUrl'].every(k=>string(c.catalogCredit?.[k as keyof CatalogCredit])))) throw new Error('Crédito do catálogo inválido.');
+    if(c.catalogCredits!==undefined&&(!Array.isArray(c.catalogCredits)||c.catalogCredits.some(credit=>!credit||!['title','author','url','license','licenseUrl'].every(k=>string(credit[k as keyof CatalogCredit]))))) throw new Error('Créditos dos catálogos inválidos.');
+    if(c.crestAttribution!==undefined&&(!c.crestAttribution||!['author','sourceUrl','fileUrl','license','licenseUrl'].every(k=>string(c.crestAttribution?.[k as keyof AssetCredit])))) throw new Error('Crédito do emblema inválido.');
+    if(!Array.isArray(c.players) || c.players.length>1000 || !c.players.every(p=>p && ['id','name','position','nation'].every(k=>string(p[k as keyof Player])) && (p.potential===undefined||finite(p.potential,1,99)) && (p.marketValue===undefined||finite(p.marketValue)) && (p.attributes===undefined||p.attributes!==null&&typeof p.attributes==='object'&&!Array.isArray(p.attributes)&&Object.values(p.attributes).every(v=>finite(v,0,99))) && (p.loanUntil===undefined||date(p.loanUntil)) && (p.loanedFrom===undefined||string(p.loanedFrom)) && (p.loanedTo===undefined||string(p.loanedTo)) && positions.includes(p.position) && finite(p.number,1,99) && Number.isInteger(p.number) && finite(p.overall,1,99) && finite(p.age,14,99) && finite(p.salary) && date(p.contract))) throw new Error('Plantel inválido.');
     const pids = new Set(c.players.map(p=>p.id));
     if(pids.size!==c.players.length || c.lineup.some(id=>id && !pids.has(id)) || new Set(c.lineup.filter(Boolean)).size!==c.lineup.filter(Boolean).length || (c.mode==='player' && !pids.has(c.playerId))) throw new Error('Referências do plantel inválidas.');
     if(!Array.isArray(c.matches) || c.matches.length>10000 || !c.matches.every(m=>m && ['id','opponent','competition','notes'].every(k=>string(m[k as keyof Match])) && (m.season===undefined||string(m.season)) && date(m.date) && ['scheduled','played'].includes(m.status) && ['home','away'].includes(m.venue) && finite(m.goalsFor,0,99) && Number.isInteger(m.goalsFor) && finite(m.goalsAgainst,0,99) && Number.isInteger(m.goalsAgainst) && Array.isArray(m.performances) && new Set(m.performances.map(p=>p.playerId)).size===m.performances.length && m.performances.every(p=>pids.has(p.playerId) && finite(p.goals,0,99) && finite(p.assists,0,99) && finite(p.minutes,0,130) && finite(p.rating,0,10)) && m.performances.reduce((a,p)=>a+p.goals,0)<=m.goalsFor && m.performances.reduce((a,p)=>a+p.assists,0)<=m.goalsFor)) throw new Error('Registos de jogos inválidos.');
