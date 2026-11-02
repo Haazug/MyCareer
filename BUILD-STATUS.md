@@ -27,8 +27,9 @@ Não existe uma biblioteca autenticada de camisolas oficiais, lettering ou faces
 
 - `npm test`: testes de migração, épocas/traduções/limites, prestações, empréstimos, banco ordenado, transfer ban, paleta/letreiro de teto e saldo futuro passam.
 - `npm run build`: TypeScript e Vite passam.
+- Verificado no browser: catálogos FC 26/27 carregam, com 779 treinadores selecionáveis como base reaproveitada do FC 26. O cronómetro permite iniciar, pausar no intervalo e terminar; os controlos adaptam-se a ecrãs móveis e tablet.
 - O build separa o balneário 3D do carregamento inicial. O chunk de Three.js continua com cerca de 532 KB minificados (133 KB gzip); a compilação sinaliza-o para otimização posterior. O módulo do balneário tem 15,3 KB (5,8 KB gzip).
-- A cena não foi testada visualmente num browser ou em vários dispositivos nesta sessão. Movimento/fps, colisões e qualidade em telemóvel precisam de ensaio real.
+- O layout do assistente e do formulário de jogo foi verificado a 390 px (telemóvel) e 820 px (tablet), sem overflow horizontal. Movimento/FPS, colisões e qualidade do balneário 3D continuam a precisar de ensaio em dispositivos reais.
 
 ## O que ainda falta para chamar isto de completo
 
@@ -39,6 +40,6 @@ Não existe uma biblioteca autenticada de camisolas oficiais, lettering ou faces
 5. Evolução e validação dos fluxos de jogador versus treinador/treinadora; progressão automática de objetivos/desafios e fim de transfer ban por período ainda não existem. A gestão aprofundada de contratos/lesões/suspensões, scout com dados reais, museu jogável e vista completa de partidas também permanece por construir.
 6. Personalização completa de moedas, unidades, idiomas por toda a aplicação e filtros de género nas definições da carreira.
 7. Política legal final adaptada à identidade do operador e fornecedores ativos; teste visual/acessibilidade, compatibilidade móvel, cópias de segurança e navegação completa.
-8. Deploy na Vercel, definição dos domínios e preenchimento dos dados legais do operador.
+8. Associar uma sessão Vercel ao projeto para publicar o commit mais recente; o deploy automático não foi acionado pelo push nesta sessão. Definição dos domínios e preenchimento dos dados legais do operador também ficam pendentes.
 
 Este é um build de desenvolvimento já funcional em vários percursos, mas não uma entrega final nem um catálogo/licenciamento concluído.
