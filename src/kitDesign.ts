@@ -1,6 +1,6 @@
 import clubColors from './data/club-colors.json';
 
-export type KitPattern = 'vertical' | 'hoops' | 'sash' | 'quarters' | 'pinstripe' | 'solid' | 'diagonal' | 'split' | 'chevrons' | 'central' | 'wave' | 'diamonds' | 'bars';
+export type KitPattern = 'vertical' | 'hoops' | 'sash' | 'quarters' | 'pinstripe' | 'solid' | 'shoulder' | 'diagonal' | 'split' | 'chevrons' | 'central' | 'wave' | 'diamonds' | 'bars';
 
 export type ClubKitDesign = {
   primary: string;
@@ -11,8 +11,8 @@ export type ClubKitDesign = {
 };
 
 const originalThemes: Record<string, Partial<ClubKitDesign>> = {
-  'sl benfica': { primary: '#c51d30', secondary: '#f2cf84', pattern: 'pinstripe', symbol: '🦅', detail: '✿' },
-  benfica: { primary: '#c51d30', secondary: '#f2cf84', pattern: 'pinstripe', symbol: '🦅', detail: '✿' },
+  'sl benfica': { primary: '#c51d30', secondary: '#f5f0e8', pattern: 'shoulder', symbol: '🦅', detail: '1904' },
+  benfica: { primary: '#c51d30', secondary: '#f5f0e8', pattern: 'shoulder', symbol: '🦅', detail: '1904' },
   'sporting cp': { primary: '#13774c', secondary: '#ece7d8', pattern: 'hoops', symbol: '♌' },
   'fc porto': { primary: '#0754a2', secondary: '#f3eee3', pattern: 'vertical', symbol: '🐉' },
   'real madrid': { primary: '#eeeae2', secondary: '#b8a56b', pattern: 'pinstripe', symbol: '♛' },
@@ -41,7 +41,7 @@ const originalThemes: Record<string, Partial<ClubKitDesign>> = {
   'wolverhampton wanderers': { primary: '#fdb913', secondary: '#242522', pattern: 'chevrons', symbol: '🐺', detail: 'WOLVES' },
   'nottingham forest': { primary: '#dd0000', secondary: '#f1eee4', pattern: 'vertical', symbol: '🌳', detail: 'FOREST' },
   'fulham': { primary: '#f1eee4', secondary: '#242522', pattern: 'quarters', symbol: '⚫', detail: 'LONDON' },
-  'sl benfica b': { primary: '#c51d30', secondary: '#f2cf84', pattern: 'pinstripe', symbol: '🦅', detail: 'SEIXAL' },
+  'sl benfica b': { primary: '#c51d30', secondary: '#f2cf84', pattern: 'shoulder', symbol: '🦅', detail: 'SEIXAL' },
   'as roma': { primary: '#8e1f2f', secondary: '#e5bd55', pattern: 'quarters', symbol: '🐺', detail: 'ROMA' },
   'ss lazio': { primary: '#8fd8f7', secondary: '#f1eee4', pattern: 'diagonal', symbol: '🦅', detail: 'AQUILA' },
   'ssc napoli': { primary: '#00a6df', secondary: '#f1eee4', pattern: 'central', symbol: '🐴', detail: 'NAPOLI' },
@@ -84,7 +84,7 @@ function complement(primary: string): string {
   return luminance > 160 ? '#242522' : '#eee9de';
 }
 
-const patterns: KitPattern[] = ['vertical', 'hoops', 'sash', 'quarters', 'pinstripe', 'solid', 'diagonal', 'split', 'chevrons', 'central', 'wave', 'diamonds', 'bars'];
+const patterns: KitPattern[] = ['vertical', 'hoops', 'sash', 'quarters', 'pinstripe', 'solid', 'shoulder', 'diagonal', 'split', 'chevrons', 'central', 'wave', 'diamonds', 'bars'];
 const motifs = ['🦅','🦁','🐺','🐉','🐻','🐂','🦊','🐎','🦈','🦌','🦉','🐍','⚓','🌿','🗼','☀'];
 const trimMarks = ['✦','◆','✚','✧','◈','✺','⬟','●','✣','▰','⌁','✥','◉','✢','▲','◌'];
 const clubColorMap = Object.fromEntries(Object.entries(clubColors).map(([name, value]) => [keyOf(name), value]));

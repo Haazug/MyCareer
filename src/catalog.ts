@@ -41,6 +41,16 @@ function text(value: unknown, fallback = ''): string {
   if (typeof value === 'string' || typeof value === 'number') return String(value).trim();
   return fallback;
 }
+
+function normalizePlayerName(value:string):string {
+  const name=value.trim();
+  const latin=name.match(/^[\p{Script=Latin}\p{M}\s.'’\-]+/u)?.[0].trim()??'';
+  if(!latin||latin.length===name.length)return name;
+  const alternate=name.slice(name.indexOf(latin)+latin.length).trim();
+  if(!alternate||!/\p{L}/u.test(alternate))return name;
+  return `${latin} (${alternate})`;
+}
+
 function number(value: unknown, fallback = 0): number {
   const parsed = typeof value === 'number' ? value : Number(String(value ?? '').replace(/[^\d.-]/g, ''));
   return Number.isFinite(parsed) ? parsed : fallback;
@@ -98,7 +108,7 @@ function normalizeCatalog(input: Record<string, unknown>, filename: string): Cat
     const nested = (value: unknown): Record<string, unknown> => value && typeof value === 'object' ? value as Record<string, unknown> : {};
     const stats = nested(row.stats); const contractData = nested(row.contract); const valueData = nested(contractData.value);
     const clubData = nested(row.club); const leagueData = nested(clubData.league);
-    const name = text(pick(row, ['name', 'long_name', 'longName', 'player', 'full_name', 'fullName', 'known_as', 'jersey_name']));
+    const name = normalizePlayerName(text(pick(row, ['name', 'long_name', 'longName', 'player', 'full_name', 'fullName', 'known_as', 'jersey_name'])));
     const club = text(typeof row.club === 'string' ? row.club : pick(clubData, ['name', 'full_name', 'short_name']));
     const league = text(typeof row.league === 'string' ? row.league : pick(row, ['league_name', 'leagueName', 'competition'])) || text(pick(leagueData, ['name', 'full_name']));
     const mainPosition = nested(row.main_position);
@@ -225,7 +235,7 @@ export function careerPlayersFromCatalog(catalog: CatalogPackage | null, clubNam
     id: crypto.randomUUID(), name: player.name, number: player.number || (index % 99) + 1, position: player.position,
     overall: player.overall, age: player.age, nation: player.nation || '—', salary: player.salary,
     contract: player.contract, potential: player.potential, marketValue: player.value,
-    ...(player.attributes ? { attributes: player.attributes } : {}),
+    ...(player.attributes ? { attributes: player.attributes } : {}), catalogManaged:true,
   }));
 }
 
