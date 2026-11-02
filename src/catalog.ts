@@ -30,7 +30,7 @@ export type CatalogPackage = {
 };
 
 const positionMap: Record<string, string> = {
-  ATA: 'PL', AT: 'PL', EXT: 'ED', EI: 'EE', MCD: 'MDC', MC: 'MC', MCO: 'MCO', LD: 'DD', LI: 'DE', DFC: 'DC', GK: 'GR', RB: 'DD', CB: 'DC', LB: 'DE', CDM: 'MDC', CM: 'MC', CAM: 'MCO',
+  ATA: 'PL', AT: 'PL', EXT: 'ED', EI: 'EE', MCD: 'MDC', MDC: 'MDC', MC: 'MC', MCO: 'MCO', LD: 'DD', LI: 'DE', DFC: 'DC', GK: 'GR', RB: 'DD', CB: 'DC', LB: 'DE', CDM: 'MDC', CM: 'MC', CAM: 'MCO',
   RM: 'MD', LM: 'ME', RW: 'ED', LW: 'EE', ST: 'PL', RWB: 'DD', LWB: 'DE',
   CF: 'PL', RF: 'ED', LF: 'EE', GR: 'GR', DD: 'DD', DC: 'DC', DE: 'DE',
   MD: 'MD', ME: 'ME', ED: 'ED', EE: 'EE', PL: 'PL',
@@ -112,7 +112,7 @@ function normalizeCatalog(input: Record<string, unknown>, filename: string): Cat
     const club = text(typeof row.club === 'string' ? row.club : pick(clubData, ['name', 'full_name', 'short_name']));
     const league = text(typeof row.league === 'string' ? row.league : pick(row, ['league_name', 'leagueName', 'competition'])) || text(pick(leagueData, ['name', 'full_name']));
     const mainPosition = nested(row.main_position);
-    const rawPositions = Array.isArray(row.positions) ? row.positions.map((entry) => { const item = nested(entry); return text(pick(item, ['name', 'clean_name'])); }) : pick(row, ['player_positions', 'position', 'playerPosition']);
+    const rawPositions = Array.isArray(row.positions) ? row.positions.map((entry) => { if (typeof entry === 'string') return entry; const item = nested(entry); return text(pick(item, ['name', 'clean_name'])); }) : pick(row, ['player_positions', 'position', 'playerPosition']);
     const positions = normalizePosition(rawPositions ?? pick(mainPosition, ['name', 'clean_name']));
     const birthDate = text(pick(row, ['birthdate', 'date_of_birth', 'dob']));
     const snapshotDate = text(pick(row, ['snapshot_date', 'snapshotDate']));
@@ -235,7 +235,7 @@ export function careerPlayersFromCatalog(catalog: CatalogPackage | null, clubNam
     id: crypto.randomUUID(), name: player.name, number: player.number || (index % 99) + 1, position: player.position,
     overall: player.overall, age: player.age, nation: player.nation || '—', salary: player.salary,
     contract: player.contract, potential: player.potential, marketValue: player.value,
-    ...(player.attributes ? { attributes: player.attributes } : {}), catalogManaged:true,
+    ...(player.attributes ? { attributes: player.attributes } : {}), catalogManaged:true, ...(player.sourceId ? { portraitUrl: `/faces/${player.sourceId}.png` } : {}),
   }));
 }
 
