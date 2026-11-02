@@ -1,5 +1,7 @@
 # MyCareer — relatório para a luz verde
 
+> **Atualização de implementação (2 de novembro de 2026):** contas opcionais por email e sincronização Supabase já estão no código, com SQL/RLS e instruções em [SUPABASE-SETUP.md](SUPABASE-SETUP.md). Não estão ligadas a um projeto real até o operador colar URL e chave pública na Vercel. O resto deste relatório regista decisões e verificações da revisão anterior; use [BUILD-STATUS.md](BUILD-STATUS.md) para o estado corrente.
+
 ## Veredicto
 
 **Luz verde recebida em 1 de novembro de 2026: iniciar a construção por etapas.** O primeiro tracker funcional já existe no build local. Cobertura gratuita e autêntica de todos os uniformes/fontes ainda não está demonstrada. Esta limitação define o que pode ser chamado de pronto e permanece no roteiro, sem suspender a construção da base funcional.

@@ -1,6 +1,6 @@
 # Estado da construção
 
-Atualizado em 1 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](https://github.com/Haazug/CAREERTRACKER), ramo `main`. Nenhuma publicação na Vercel foi feita.
+Atualizado em 2 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](https://github.com/Haazug/CAREERTRACKER), ramo `main`. Nenhuma publicação na Vercel foi feita.
 
 ## Versão funcional, sem publicação na Vercel
 
@@ -13,7 +13,8 @@ Atualizado em 1 de novembro de 2026. Repositório-alvo: [Haazug/CAREERTRACKER](h
 - A academia de formação permite adicionar jovens, acompanhar OVR/potencial/estatísticas manualmente e promovê-los ao plantel.
 - O scout permite observações em pastas, potencial, preço antes de guardar e atalhos de pesquisa manual para SoFIFA, Transfermarkt e BeSoccer. Não coleta dados automaticamente: restrições/licenças não permitem a integração pretendida sem base/licença próprias.
 - As camisolas mostram apenas a frente; nome, número, posição e OVR ficam na placa acima do cabide/cabine e na lista do plantel. Não existe vista de costas. Um emblema próprio/licenciado pode ser carregado na carreira. A identidade visível agora é MyCareer, com tipografia de sistema, modo wordmark provisório e paleta preta, branca e bege. O balneário 3D original é percorrível por teclado, rato e toque; a câmara também inclina, e cada carreira pode editar paredes, detalhes, teto, luz, símbolo e frase. Dias normais mostram apenas cabines; dias de jogo penduram camisolas com nomes/números; pós-jogo expõe bola geométrica de hat-trick e taça ilustrativa com rotação e balanço suaves se os registos individuais existirem. As camisolas penduradas têm movimento inercial simples. Os planos de sala migram sem apagar saves; a cena continua sem asset oficial.
-- Minutas de privacidade, cookies e termos estão acessíveis desde a entrada e no interior da aplicação; a privacidade agora explica consentimento para Groq e Cloudflare AI. Gemini foi excluído por termos incompatíveis com a audiência UE/menores no plano gratuito. Identificação e contacto do responsável, alojamento final e eventuais fornecedores ainda precisam de ser preenchidos antes de uma publicação real.
+- Minutas de privacidade, cookies e termos estão acessíveis desde a entrada e no interior da aplicação; a privacidade explica armazenamento local, conta opcional, sincronização Supabase e consentimento para Groq/Cloudflare AI. Gemini foi excluído por termos incompatíveis com a audiência UE/menores no plano gratuito. Identificação/contacto do responsável e alojamento final ainda precisam de ser preenchidos antes de uma publicação pública.
+- Login email/palavra-passe e sincronização Supabase estão implementados com sessão local, sincronização automática/manual, schema SQL e RLS por utilizador. A configuração e os passos copiáveis estão em [SUPABASE-SETUP.md](SUPABASE-SETUP.md). Nenhuma chave/projeto real foi fornecida ou configurada; falta testar a integração contra o projeto Supabase do operador. A recuperação de palavra-passe e a eliminação de conta pela interface ainda não existem.
 - O registo [SOURCES-AND-RIGHTS.md](SOURCES-AND-RIGHTS.md) compara as bases/API e documenta licenças, limites, fallbacks e estado de cada integração; termos de TheSportsDB e encerramento da FKAPI foram revistos em novembro de 2026; o detalhe de equipamentos e lettering continua na [auditoria](audit/README.md).
 
 ## Fontes visuais e de dados
@@ -33,7 +34,7 @@ As formas, texturas 3D, troféu ilustrativo e brasões genéricos são placehold
 
 1. Catálogo real por edição, temporada, género e modo, com procedência e direitos de distribuição; extensível a clubes/ligas/seleções FC 26 e 27.
 2. Uniformes, logos, faces e fontes oficiais por kit/competição com licença de exibição e adaptação confirmada. O registo não tem tal biblioteca, pelo que a versão atual usa peças próprias.
-3. Autenticação/sincronização Supabase, isolamento entre contas, recuperação de senha e política de retenção; nenhuma conta está configurada.
+3. Recuperação de palavra-passe, eliminação de conta pela interface e política de retenção; a primeira versão já isola a leitura/escrita com RLS e evita misturar saves locais quando se troca de conta no mesmo navegador.
 4. IA: endpoint Vercel implementado para Groq e Cloudflare Workers AI, com roles separados, consentimento independente, fallback autorizado, limites e sem histórico persistido. Precisa de chaves de servidor; não está ativo sem configuração e ainda não foi avaliado com contas/modelos reais.
 5. Evolução e validação dos fluxos de jogador versus treinador/treinadora; progressão automática de objetivos/desafios e fim de transfer ban por período ainda não existem. A gestão aprofundada de contratos/lesões/suspensões, scout com dados reais, museu jogável e vista completa de partidas também permanece por construir.
 6. Personalização completa de moedas, unidades, idiomas por toda a aplicação e filtros de género nas definições da carreira.
