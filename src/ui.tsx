@@ -1,12 +1,17 @@
-import { useEffect, useId, useRef, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+let badgeMapPromise: Promise<Record<string,string>> | null = null;
+function loadBadgeMap(){ if(!badgeMapPromise) badgeMapPromise = fetch('/data/badge-map.json').then(r=>r.ok?r.json():{}).catch(()=>({})); return badgeMapPromise; }
 import { ArrowRight, ChevronRight, X, Shield, Trophy } from 'lucide-react';
 import { clubInitials } from './model';
 import { clubKitDesign } from './kitDesign';
 export function Logo({ small=false }: {small?:boolean}) { return <div className={`brand ${small?'small':''}`} aria-label="MyCareer"><span className="brand-word">MyCareer<span className="brand-dot">.</span></span></div>; }
 export function Crest({ club, color='#dc4136', size=48, image }: {club:string;color?:string;size?:number;image?:string}) {
+  const [mapped,setMapped]=useState<string>();const [failed,setFailed]=useState(false);
+  useEffect(()=>{let alive=true;setFailed(false);setMapped(undefined);if(!image)void loadBadgeMap().then(m=>{if(alive)setMapped(m[club]);});return()=>{alive=false;};},[club,image]);
+  const src=image||(failed?undefined:mapped);
   const design = clubKitDesign(club, color);
   return <div className="crest" style={{'--club-color':design.primary,'--crest-secondary':design.secondary,width:size,height:size*1.16} as CSSProperties} title={`${club} · emblema conceptual MyCareer`}>
-    {image ? <img src={image} alt={`Emblema de ${club}`}/> : <><Shield size={size*.88} strokeWidth={1}/><span className="crest-symbol" aria-hidden="true">{design.symbol}</span>{design.detail&&<b className="crest-detail" aria-hidden="true">{design.detail}</b>}<small className="crest-initials">{clubInitials(club).slice(0,3)}</small></>}
+    {src ? <img src={src} alt={`Emblema de ${club}`} onError={()=>setFailed(true)}/> : <><Shield size={size*.88} strokeWidth={1}/><span className="crest-symbol" aria-hidden="true">{design.symbol}</span>{design.detail&&<b className="crest-detail" aria-hidden="true">{design.detail}</b>}<small className="crest-initials">{clubInitials(club).slice(0,3)}</small></>}
   </div>;
 }
 export function Shirt({ color='#db352f', number, name='', keeper=false, id:givenId, club='', crestUrl }: { color?:string;number?:number;name?:string;keeper?:boolean;id?:string;club?:string;crestUrl?:string }) {
